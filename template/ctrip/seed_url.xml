@@ -1,0 +1,20 @@
+<url-entities>
+    <!--<entity>-->
+    <!--<url site="gewara">http://www.gewara.com/</url>-->
+    <!--<state>1</state>-->
+    <!--</entity>-->
+
+    <!--<entity>-->
+    <!--<url site="gewara">http://www.gewara.com/cinema/ajax/getOpiItemPage.xhtml?cid=165726117&amp;mid=&amp;fyrq=2016-06-05</url>-->
+    <!--<state>30</state>-->
+    <!--</entity>-->
+
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hangzhou-14/grouptravel/ss141</url>-->
+        <!--<level>20</level>-->
+    <!--</entity>-->
+    <entity>
+        <url>http://vacations.ctrip.com/grouptravel/p3090323s141.html</url>
+        <level>100</level>
+    </entity>
+</url-entities>

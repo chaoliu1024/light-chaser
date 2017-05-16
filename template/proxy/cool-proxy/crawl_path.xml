@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+    <headers>
+        <User-Agent>Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</User-Agent>
+        <Accept-Language>zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</Accept-Language>
+        <Accept-Encoding>gzip, deflate</Accept-Encoding>
+        <Accept>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</Accept>
+    </headers>
+    <parameters>
+        <interval_min>500</interval_min>
+        <interval_max>1000</interval_max>
+        <backup_intervals>10</backup_intervals>
+    </parameters>
+    <url_levels name="All States">
+        <level id="100">
+            <plugin name="next_page" class="NextPage" level="100">
+                <xpath>//tr/th[contains(@class,'pagination')]/span[contains(@class,'current')]/following::span[1]/a/text()</xpath>
+                <regex>(.*)</regex>
+                <replace>http://www.cool-proxy.net/proxies/http_proxy_list/sort:score/direction:desc/page:\1</replace>
+                <totalPage>10</totalPage>
+                <endPageTag>http://www.cool-proxy.net/proxies/http_proxy_list/sort:score/direction:desc/page:(\d+)</endPageTag>
+            </plugin>
+        </level>
+    </url_levels>
+</configs>

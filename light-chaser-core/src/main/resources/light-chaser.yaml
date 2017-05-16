@@ -1,0 +1,4 @@
+template.path: "D:\\space-time\\light-chaser\\template"
+
+proxy.path: "D:\\space-time\\light-chaser\\template\\proxy"
+proxy.file: "proxy.yaml"

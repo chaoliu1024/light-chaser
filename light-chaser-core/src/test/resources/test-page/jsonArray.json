@@ -1,0 +1,38 @@
+[
+  {
+    "Date": "2016-10-11",
+    "MinPrice": 2750.0,
+    "RemainingInventory": 16,
+    "IsAnnouncedGroup": false,
+    "GroupStatus": 0,
+    "RemainingAmount": 0,
+    "TourGroupCalenderInfo": [
+      {
+        "IsAnnouncedGroup": false,
+        "MinPrice": 2750,
+        "ProductID": 3090323,
+        "RemainingAmount": 0,
+        "RemainingInventory": 16,
+        "Alias": "",
+        "GroupStatus": 0,
+        "CouponPromotions": [],
+        "OptionPromotions": [
+          {
+            "ProductID": 3090323,
+            "ActivityID": 12917359,
+            "ActivityName": "『提前10天,2成人』优惠200元/单",
+            "ActivityType": 1,
+            "AvailableDate": "0001-01-01T00:00:00"
+          },
+          {
+            "ProductID": 3090323,
+            "ActivityID": 12917391,
+            "ActivityName": "『提前20天,2成人』再优惠100元/单",
+            "ActivityType": 1,
+            "AvailableDate": "0001-01-01T00:00:00"
+          }
+        ]
+      }
+    ]
+  }
+]

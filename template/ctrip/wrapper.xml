@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wrappers>
+    <!-- http://vacations.ctrip.com/grouptravel/p9585134s2.html -->
+    <!-- 详情页 -->
+    <!-- 考虑到重定向页面，每个状态页面不一定url正则都相同，所以不用正则区分页面-->
+    <wrapper levelId="100" type="html">
+        <node name="productId" nullable="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*grouptravel\/p(\d+)s.*</regex>
+                    <result>\1</result>
+                </plugin>
+            </plugin>
+        </node>
+        <!-- 城市 -->
+        <node name="destination" nullable="0" xpath="//div[@class='crumbs']/a[3]/text()">
+            <plugin class="Replace">
+                <regex>(.*)旅游</regex>
+                <result>\1</result>
+            </plugin>
+        </node>
+        <!-- 产品名称 -->
+        <node name="productName" nullable="0" xpath="//h1[@itemprop='name']/text()"/>
+    </wrapper>
+
+    <!-- http://vacations.ctrip.com/bookingnext/Calendar/CalendarInfo?ProductID=6318318&StartCity=141&SalesCity=141
+    &MinPrice=0&EffectDate=2016-05-30&ExpireDate=2016-10-04 -->
+    <wrapper levelId="110" type="json">
+        <node name="productId" allownull="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*ProductID=(\d+)&amp;StartCity=(\d+).*</regex>
+                    <result>\1s\2</result>
+                </plugin>
+            </plugin>
+        </node>
+        <node name="prices" nullable="0" key="calendar.bigCalendar.availableDate">
+            <node name="price" nullable="0" key="MinPrice"/>
+            <node name="date" nullable="0" key="Date"/>
+            <node name="remain" allownull="0" key="RemainingInventory"/>
+        </node>
+    </wrapper>
+</wrappers>

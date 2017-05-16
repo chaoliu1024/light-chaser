@@ -1,0 +1,18 @@
+<url-entities>
+    <entity>
+        <url>http://www.xicidaili.com/nn/1</url>
+        <level>100</level>
+    </entity>
+    <entity>
+        <url>http://www.xicidaili.com/nt/1</url>
+        <level>100</level>
+    </entity>
+    <entity>
+        <url>http://www.xicidaili.com/wn/1</url>
+        <level>100</level>
+    </entity>
+    <entity>
+        <url>http://www.xicidaili.com/wt/1</url>
+        <level>100</level>
+    </entity>
+</url-entities>

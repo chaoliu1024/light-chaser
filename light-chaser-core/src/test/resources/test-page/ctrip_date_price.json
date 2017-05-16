@@ -1,0 +1,600 @@
+{
+  "errno": 0,
+  "productMinPrice": 2620.0,
+  "productMinPriceRemark": "1%e3%80%81%e6%9c%ac%e8%b5%b7%e4%bb%b7%e6%98%af%e5%9c%a8%e6%9c%80%e8%bf%9124%e5%b0%8f%e6%97%b6%e5%86%85%e6%b5%8b%e7%ae%97%e7%9a%84%e3%80%81%e6%8c%89%e5%8f%8c%e4%ba%ba%e5%87%ba%e8%a1%8c%e5%85%b1%e7%94%a8%e4%b8%80%e9%97%b4%e6%88%bf%e6%a0%b8%e7%ae%97%e7%9a%84%3cstrong+style%3d%5c%27color%3ared%5c%27%3e%e5%8d%95%e4%ba%ba%e4%bb%b7%e6%a0%bc%3c%2fstrong%3e%e3%80%82%3cbr%3e2%e3%80%81%e4%be%8b%e5%a6%82%ef%bc%8c%e6%82%a8%e9%80%89%e6%8b%a92016-09-15%e6%97%a52%e4%bd%8d%e6%88%90%e4%ba%ba%e5%87%ba%e8%a1%8c%ef%bc%8c%e9%80%89%e6%8b%a9%e4%bb%8e%e5%8c%85%e5%a4%b4%e5%88%b0%e9%83%91%e5%b7%9e%e8%88%aa%e7%8f%ad%e5%8f%b7JD5399%e3%80%81%e4%bb%8e%e9%83%91%e5%b7%9e%e5%88%b0%e5%8c%85%e5%a4%b4%e8%88%aa%e7%8f%ad%e5%8f%b7CZ3195%e7%9a%84%e6%83%85%e5%86%b5%e4%b8%8b%ef%bc%8c%e5%b0%b1%e5%8f%af%e4%bb%a5%e4%ba%ab%e5%8f%97%e6%9c%ac%e6%9c%80%e4%bd%8e%e8%b5%b7%e4%bb%b7%e4%bb%b7%e6%a0%bc%e3%80%82%3cbr%2f%3e3%e3%80%81%e6%ad%a4%e6%9c%80%e4%bd%8e%e4%bb%b7%e6%a0%bc%e5%b7%b2%e5%8c%85%e5%90%ab%e4%bb%a5%e4%b8%8b%e5%86%85%e5%ae%b9%ef%bc%9a%3cbr%3e1)5%e6%97%a5%e6%b8%b8%e5%a5%97%e9%a4%90%3cbr%3e4%e3%80%81%e4%ba%a7%e5%93%81%e4%bb%b7%e6%a0%bc%e4%bc%9a%e6%a0%b9%e6%8d%ae%e6%82%a8%e6%89%80%e9%80%89%e6%8b%a9%e7%9a%84%e5%87%ba%e5%8f%91%e6%97%a5%e6%9c%9f%e3%80%81%e5%87%ba%e8%a1%8c%e4%ba%ba%e6%95%b0%e3%80%81%e5%85%a5%e4%bd%8f%e9%85%92%e5%ba%97%e6%88%bf%e5%9e%8b%e3%80%81%e8%88%aa%e7%8f%ad%e6%88%96%e4%ba%a4%e9%80%9a%e4%bb%a5%e5%8f%8a%e6%89%80%e9%80%89%e9%99%84%e5%8a%a0%e6%9c%8d%e5%8a%a1%e7%9a%84%e4%b8%8d%e5%90%8c%e8%80%8c%e6%9c%89%e6%89%80%e5%b7%ae%e5%88%ab%e3%80%82",
+  "pkgDiscount": "",
+  "pkgMarketPrice": "0",
+  "calendar": {
+    "bigCalendar": {
+      "dateRange": [
+        "2016-09-24",
+        "2016-09-30"
+      ],
+      "availableDate": [
+        {
+          "Date": "2016-09-24",
+          "MinPrice": 2855.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 2855,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        },
+        {
+          "Date": "2016-09-25",
+          "MinPrice": 2780.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 2780,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        },
+        {
+          "Date": "2016-09-26",
+          "MinPrice": 3610.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 3610,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        },
+        {
+          "Date": "2016-09-27",
+          "MinPrice": 2950.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 2950,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        },
+        {
+          "Date": "2016-09-28",
+          "MinPrice": 3790.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 3790,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        },
+        {
+          "Date": "2016-09-29",
+          "MinPrice": 3700.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 3700,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        },
+        {
+          "Date": "2016-09-30",
+          "MinPrice": 3420.0,
+          "RemainingInventory": 99999,
+          "IsAnnouncedGroup": false,
+          "GroupStatus": 0,
+          "RemainingAmount": 0,
+          "TourGroupCalenderInfo": [
+            {
+              "IsAnnouncedGroup": false,
+              "MinPrice": 3420,
+              "ProductID": 6318318,
+              "RemainingAmount": 0,
+              "RemainingInventory": 99999,
+              "Alias": "",
+              "GroupStatus": 0,
+              "CouponPromotions": [],
+              "OptionPromotions": []
+            }
+          ]
+        }
+      ],
+      "festivalsDate": [
+        {
+          "Date": "2016-10-04",
+          "Name": "中国国庆节",
+          "Type": 8,
+          "OnlineShow": "true",
+          "OfflineShow": "true",
+          "OrderShow": "true"
+        },
+        {
+          "Date": "2016-10-03",
+          "Name": "中国国庆节",
+          "Type": 8,
+          "OnlineShow": "true",
+          "OfflineShow": "true",
+          "OrderShow": "true"
+        },
+        {
+          "Date": "2016-10-02",
+          "Name": "中国国庆节",
+          "Type": 8,
+          "OnlineShow": "true",
+          "OfflineShow": "true",
+          "OrderShow": "true"
+        },
+        {
+          "Date": "2016-10-01",
+          "Name": "中国国庆节",
+          "Type": 8,
+          "OnlineShow": "true",
+          "OfflineShow": "true",
+          "OrderShow": "true"
+        }
+      ],
+      "prohibitDate": "|",
+      "totalCouponPromotions": [],
+      "totalOptionPromotions": []
+    }
+  },
+  "departureCity": [
+    {
+      "productId": 6318318,
+      "cityId": 141,
+      "name": "包头",
+      "minPrice": 2620.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 1,
+      "name": "北京",
+      "minPrice": 2940.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 2,
+      "name": "上海",
+      "minPrice": 2540.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 3,
+      "name": "天津",
+      "minPrice": 2740.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 4,
+      "name": "重庆",
+      "minPrice": 2670.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 5,
+      "name": "哈尔滨",
+      "minPrice": 3230.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 6,
+      "name": "大连",
+      "minPrice": 2370.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 7,
+      "name": "青岛",
+      "minPrice": 2300.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 10,
+      "name": "西安",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 12,
+      "name": "南京",
+      "minPrice": 2430.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 13,
+      "name": "无锡",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 15,
+      "name": "扬州",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 17,
+      "name": "杭州",
+      "minPrice": 2480.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 23,
+      "name": "黄山",
+      "minPrice": 2820.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 25,
+      "name": "厦门",
+      "minPrice": 2880.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 27,
+      "name": "张家界",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 28,
+      "name": "成都",
+      "minPrice": 3040.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 30,
+      "name": "深圳",
+      "minPrice": 2820.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 31,
+      "name": "珠海",
+      "minPrice": 2750.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 32,
+      "name": "广州",
+      "minPrice": 3070.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 33,
+      "name": "桂林",
+      "minPrice": 2704.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 34,
+      "name": "昆明",
+      "minPrice": 2680.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 37,
+      "name": "丽江",
+      "minPrice": 3060.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 38,
+      "name": "贵阳",
+      "minPrice": 2550.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 39,
+      "name": "乌鲁木齐",
+      "minPrice": 3650.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 41,
+      "name": "拉萨",
+      "minPrice": 4810.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 42,
+      "name": "海口",
+      "minPrice": 2680.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 43,
+      "name": "三亚",
+      "minPrice": 2800.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 58,
+      "name": "香港",
+      "minPrice": 3152.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 82,
+      "name": "南通",
+      "minPrice": 2560.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 91,
+      "name": "九寨沟",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 99,
+      "name": "银川",
+      "minPrice": 2840.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 100,
+      "name": "兰州",
+      "minPrice": 2310.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 103,
+      "name": "呼和浩特",
+      "minPrice": 2400.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 105,
+      "name": "太原",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 109,
+      "name": "喀什市",
+      "minPrice": 5390.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 124,
+      "name": "西宁",
+      "minPrice": 2780.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 140,
+      "name": "运城",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 142,
+      "name": "海拉尔",
+      "minPrice": 5340.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 144,
+      "name": "济南",
+      "minPrice": 2770.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 158,
+      "name": "长春",
+      "minPrice": 3000.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 202,
+      "name": "赤峰",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 206,
+      "name": "长沙",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 213,
+      "name": "常州",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 251,
+      "name": "佛山",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 258,
+      "name": "福州",
+      "minPrice": 2540.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 278,
+      "name": "合肥",
+      "minPrice": 3046.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 370,
+      "name": "绵阳",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 375,
+      "name": "宁波",
+      "minPrice": 2630.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 376,
+      "name": "南昌",
+      "minPrice": 2880.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 380,
+      "name": "南宁",
+      "minPrice": 2800.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 428,
+      "name": "石家庄",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 451,
+      "name": "沈阳",
+      "minPrice": 2720.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 477,
+      "name": "武汉",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 479,
+      "name": "威海",
+      "minPrice": 2772.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 491,
+      "name": "温州",
+      "minPrice": 2600.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 494,
+      "name": "西昌",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 512,
+      "name": "徐州",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 515,
+      "name": "宜昌",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 523,
+      "name": "延吉",
+      "minPrice": 3160.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 527,
+      "name": "榆林",
+      "minPrice": 3450.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 533,
+      "name": "烟台",
+      "minPrice": 2850.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 536,
+      "name": "义乌",
+      "minPrice": 2860.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 578,
+      "name": "台州",
+      "minPrice": 0.0
+    },
+    {
+      "productId": 6318318,
+      "cityId": 956,
+      "name": "揭阳",
+      "minPrice": 2710.0
+    }
+  ],
+  "moreLine": [],
+  "isDisplayPeopleOrder": false,
+  "departureCityId": 0,
+  "destCityId": 0,
+  "priceWarningPencent": "",
+  "promotionDiscount": 0.0,
+  "promotionOptionID": []
+}

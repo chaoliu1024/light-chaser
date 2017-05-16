@@ -1,0 +1,18 @@
+<url-entities>
+    <entity>
+        <url>http://www.ip3366.net/free/?stype=1&amp;page=1</url>
+        <level>100</level>
+    </entity>
+    <!--<entity>-->
+        <!--<url>http://www.ip3366.net/free/?stype=2&amp;page=1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url>http://www.ip3366.net/free/?stype=3&amp;page=1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url>http://www.ip3366.net/free/?stype=4&amp;page=1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+</url-entities>

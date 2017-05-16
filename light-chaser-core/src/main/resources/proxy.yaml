@@ -1,0 +1,11 @@
+proxy.verifier.web:
+  baidu:
+    - url: http://news.baidu.com/
+    - xpath: //div[contains(@class,'logo')]/a/@href
+    - value: baidu.com
+#  ctrip:
+#    - url: http://www.ctrip.com
+#    - xpath: //div[contains(@class,'logo')]
+
+proxy.sites:
+  - enable:

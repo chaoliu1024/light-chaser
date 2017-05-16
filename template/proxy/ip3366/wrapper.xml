@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wrappers>
+    <wrapper levelId="100" type="html">
+        <node name="proxy" nullable="0" xpath="//div[@id='list']//tbody/tr" type="list">
+            <node name="host" nullable="0" xpath="./td[1]"/>
+            <node name="port" nullable="0" xpath="./td[2]"/>
+            <node name="type" nullable="0" xpath="./td[4]"/>
+        </node>
+    </wrapper>
+</wrappers>
