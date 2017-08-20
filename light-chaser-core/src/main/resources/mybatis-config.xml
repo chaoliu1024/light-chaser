@@ -5,11 +5,15 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="DatePrice" type="me.chaoliu.lightchaser.core.fission.ota.domain.DatePriceVO"/>
-        <typeAlias alias="Product" type="me.chaoliu.lightchaser.core.fission.ota.domain.ProductVO"/>
-        <typeAlias alias="ProxyVO" type="me.chaoliu.lightchaser.core.fission.proxy.domain.ProxyVO"/>
-        <typeAlias alias="ArchiveVO" type="me.chaoliu.lightchaser.core.fission.archive.domain.ArchiveVO"/>
-        <typeAlias alias="WebPage" type="me.chaoliu.lightchaser.core.fission.webpage.WebPage"/>
+        <typeAlias alias="CalendarPrice"
+                   type="group.chaoliu.lightchaser.core.fission.ota.domain.po.OTACalendarPricePO"/>
+        <typeAlias alias="Product" type="group.chaoliu.lightchaser.core.fission.ota.domain.po.OTAProductPO"/>
+        <typeAlias alias="Site" type="group.chaoliu.lightchaser.core.fission.common.domain.SitePO"/>
+        <typeAlias alias="JobType" type="group.chaoliu.lightchaser.core.fission.common.domain.JobTypePO"/>
+        <typeAlias alias="Proxy" type="group.chaoliu.lightchaser.core.fission.proxy.domain.ProxyPO"/>
+        <typeAlias alias="ImageInfo" type="group.chaoliu.lightchaser.core.fission.picture.domain.po.ImageInfoPO"/>
+        <typeAlias alias="ImageCategory"
+                   type="group.chaoliu.lightchaser.core.fission.picture.domain.po.ImageCategoryPO"/>
     </typeAliases>
 
 </configuration>

@@ -1,0 +1,774 @@
+<url-entities>
+    <entity>
+        <url site="ctrip">http://vacations.ctrip.com/tours/d-sanya-61/freetravel/ss12p1</url>
+        <level>50</level>
+    </entity>
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-sanya-10558612/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-sanya-10558611/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-sanya-88071/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-sanya-10558614/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-sanya-13659539/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qixianling-1445176/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-haikou-37/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xiamen-21/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-xiamen-91537/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-gulangyu-120058/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wuyishan-22/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-quanzhou-243/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-fuzhou-164/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-longyan-13293683/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-xiamen-79124/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-xiamen-10558656/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-lijiang-32/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-kunming-29/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xishuangbanna-30/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-tengchong-696/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xianggelila-106/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-dali-31/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-luguhu-105/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-meilixueshan-1143/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-dali-75916/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-lijiang-75919/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-guilin-28/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-beihai-140/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-nanning-166/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yangshuo-702/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-guilin-75898/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-longjititian-970/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-weizhouisland-120063/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-fenghuang-86926/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-yangshuo-80969/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-yangshuo-10558831/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-beihai-77771/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-jiuzhaigou-25/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-chengdu-104/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-daocheng-342/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-emeishan-24/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-leshan-103/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-huanglong-143864/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-dujiangyan-911/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qingchengshan-143879/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hailuogou-705/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-aba-744/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-beijing-10524169/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-beijing-75595/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-beijing-75597/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-yanqing-75596/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-beijing-75599/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qingdao-5/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yantai-170/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-changdao-505/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-weihai-169/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-jinan-128/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-taishan-6/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qufu-129/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-qingdao-83237/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-qingdao-10559109/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-qingdao-85745/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hangzhou-14/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shanghai-2/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-nanjing-9/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-ningbo-83/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-putuoshan-16/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qiandaohu-17/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wuzhen-508/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-suzhou-11/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wuxi-10/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xitang-15/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hengdian-1096/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-linan-88/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-huangshan-19/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hongcun-120496/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-huangshan-79450/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-huangshan-80577/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-jiuhuashan-182/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hefei-196/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-huangshan-10758666/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-dalian-4/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-dalian-75630/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-dalian-10559167/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-changbaishan-268/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-changbaishan-77992/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-haerbin-151/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-haerbin-77071/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shenyang-155/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-changchun-216/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yabuli-815/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xuexiang-1445063/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xian-7/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-huashan-183/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yanan-423/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-xian-75682/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-fufeng-84611/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-xian-81938/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-yichuan-79235/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-qianxian-84602/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wuhan-145/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yichang-313/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shennongjia-147/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-changjiangsanxia-109/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wudangshan-146/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-enshi-487/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-wuhan-77593/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-wuhan-13369227/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-nanchang-175/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-lushan-20/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-jinggangshan-171/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wuyuan-446/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-sanqingshan-159/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-longhushan-160/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yichun-743/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shangrao-547/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-mingyueshan-752/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-jingdezhen-405/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zhangjiajie-23/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-fenghuang-10558753/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-changsha-148/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hengshan-277/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-ziyuan-10546585/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-changde-417/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-zhangjiajie-90609/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xiangxi-496/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-wulingyuaninterestarea-77201/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-lanzhou-231/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-dunhuang-8/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-jiayuguan-284/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xining-237/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yinchuan-239/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-dunhuang-75693/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-zhangye-84153/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qinghaihu-281/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zhongwei-1184/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-zhongwei-83186/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-guiyang-33/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-anshun-79814/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-libo-659/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zunyi-204/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zhenyuan-1840/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xingyi-519/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-guangzhou-152/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shenzhen-26/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zhuhai-27/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-guangzhou-10558935/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-xunliaowan-120082/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yangjiang-363/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-zhuhai-10762535/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wulong-120015/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-dazu-78129/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-chongqing-10558680/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-chongqing-91483/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wulumuqi-117/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-tulufan-35/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-kanasi-816/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yili-115/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hami-567/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-lhasa-36/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-lhasa-75936/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-rikaze-100/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-linzhi-126/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-huhehaote-156/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-manzhouli-319/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-eerduosi-600/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-baotou-347/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-hulunbeier-458/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-aershan-120084/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-ejinaqi-84016/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-taiyuan-167/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-pingyao-365/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-wutaishan-184/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-datong-275/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-jinzhong-89514/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-lingshi-89515/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-taiyuan-83199/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zhengzhou-157/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-kaifeng-165/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-luoyang-198/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-longmenshiku-1445188/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shaolinsi-1445019/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-songshan-178/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-kaifeng-10758165/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-yuntaishan-120494/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/s-luoyang-82374/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-qinhuangdao-132/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-chengde-135/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-beidaihe-1938/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-zhangjiakou-497/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shijiazhuang-199/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+    <!--<entity>-->
+        <!--<url site="ctrip">http://vacations.ctrip.com/tours/d-shanhaiguan-120556/freetravel/ss12p1</url>-->
+        <!--<level>50</level>-->
+    <!--</entity>-->
+</url-entities>

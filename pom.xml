@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.chaoliu.lightchaser</groupId>
+    <groupId>group.chaoliu.lightchaser</groupId>
     <artifactId>light-chaser</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
@@ -76,7 +76,6 @@
             <artifactId>spring-test</artifactId>
             <version>${springframework.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -86,6 +85,7 @@
     </dependencies>
 
     <build>
+        <finalName>light-chaser</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -102,6 +102,7 @@
                 <extensions>true</extensions>
             </plugin>
         </plugins>
+
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -110,6 +111,42 @@
                 </includes>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources-${profile.name}</directory>
+            </resource>
         </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation> <!-- 这里表示默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profile.name>dev</profile.name>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profile.name>test</profile.name>
+                <!--<maven.test.skip>true</maven.test.skip>-->
+            </properties>
+            <!--<activation>-->
+                <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <profile.name>pro</profile.name>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>

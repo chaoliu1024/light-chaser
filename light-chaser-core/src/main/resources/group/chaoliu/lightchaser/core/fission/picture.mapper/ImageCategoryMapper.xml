@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.picture.mapper.ImageCategoryMapper">
+
+    <insert id="insertCategory" parameterType="ImageCategory">
+        INSERT INTO `image_category`(`name`) VALUES (#{name})
+    </insert>
+
+    <select id="fetchCategory" parameterType="ImageCategory" resultType="ImageCategory">
+        SELECT i.* FROM image_category i WHERE i.`name`=#{name};
+    </select>
+
+</mapper>

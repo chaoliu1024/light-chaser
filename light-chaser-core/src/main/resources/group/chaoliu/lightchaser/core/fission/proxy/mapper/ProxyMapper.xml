@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.proxy.mapper.ProxyMapper">
+
+    <insert id="insertProxy" parameterType="Proxy">
+        INSERT INTO proxy(
+        host, port, proxy_type, cost_time, failed_num, update_time
+        <if test="userName != null">, user_name</if>
+        <if test="password != null">, password</if>
+        <if test="level != null">, `level`</if>
+        <if test="isInternet != null">, is_internet</if>
+        ) VALUES (
+        #{host}, #{port}, #{proxyType}, #{costTime}, #{failedNum}, #{updateTime}
+        <if test="userName != null">, #{userName}</if>
+        <if test="password != null">, #{password}</if>
+        <if test="level != null">, #{level}</if>
+        <if test="isInternet != null">, #{isInternet}</if>
+        ) ON DUPLICATE KEY UPDATE
+        proxy_type = #{proxyType}, cost_time = #{costTime},
+        failed_num = #{failedNum}, update_time = #{updateTime}
+        <if test="userName != null">, user_name = #{userName}</if>
+        <if test="password != null">, password = #{password}</if>
+        <if test="level != null">, `level` = #{level}</if>
+        <if test="isInternet != null">, is_internet = #{isInternet}</if>
+    </insert>
+
+    <insert id="insertBatchProxies">
+        INSERT INTO proxy(
+        host, port, proxy_type, cost_time, failed_num, update_time,
+        user_name, password, `level`, is_internet
+        ) VALUES
+        <foreach collection="proxies" item="proxy" separator=",">
+            (
+            #{proxy.host}, #{proxy.port}, #{proxy.proxyType}, #{proxy.costTime},
+            #{proxy.failedNum}, #{proxy.updateTime}
+            <choose>
+                <when test="proxy.userName != null ">, #{proxy.userName}</when>
+                <otherwise>, ''</otherwise>
+            </choose>
+            <choose>
+                <when test="proxy.password != null ">, #{proxy.password}</when>
+                <otherwise>, ''</otherwise>
+            </choose>
+            <choose>
+                <when test="proxy.level != null ">, #{proxy.level}</when>
+                <otherwise>, 0</otherwise>
+            </choose>
+            <choose>
+                <when test="proxy.isInternet != null ">, #{proxy.isInternet}</when>
+                <otherwise>, 1</otherwise>
+            </choose>
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        proxy_type = #{proxy.proxyType}, cost_time = #{proxy.costTime},
+        failed_num = #{proxy.failedNum}, update_time = #{proxy.updateTime},
+        level = #{proxy.level}
+    </insert>
+
+    <select id="fetchCommonUsableProxies" resultType="group.chaoliu.lightchaser.core.protocol.http.Proxy">
+        SELECT p.`host`, p.`port`, p.`proxy_type` AS `proxyType`,
+        p.`user_name` AS `userName`, p.`password`
+        FROM `proxy` p
+        WHERE p.`level` = 1
+    </select>
+
+    <select id="fetchAllProxies" resultType="group.chaoliu.lightchaser.core.protocol.http.Proxy">
+        SELECT p.`host`,p.`port`,p.`proxy_type` AS `proxyType`,
+        p.`user_name` AS `userName`, p.`password`
+        FROM `proxy` p
+    </select>
+
+</mapper>

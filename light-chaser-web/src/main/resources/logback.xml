@@ -2,7 +2,7 @@
 
 <configuration>
 
-    <property name="LOG_HOME" value="${catalina.home:-.}/logs/" />
+    <property name="LOG_HOME" value="${catalina.home:-.}/logs/"/>
 
     <appender name="PROJECT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/light-chaser.web.log</file>
@@ -28,7 +28,7 @@
     </appender>
 
 
-    <logger name="me.chaoliu.lightchaser.web" additivity="false" level="INFO">
+    <logger name="group.chaoliu.lightchaser.web" additivity="false" level="INFO">
         <appender-ref ref="PROJECT"/>
     </logger>
     <logger name="STDERR" additivity="false" level="ERROR">

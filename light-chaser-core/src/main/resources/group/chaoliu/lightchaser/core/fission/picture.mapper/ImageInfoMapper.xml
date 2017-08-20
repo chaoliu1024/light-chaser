@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.picture.mapper.ImageInfoMapper">
+
+    <insert id="insertImage" parameterType="ImageInfo">
+        INSERT INTO `image_info`(
+        file_name, path, url, crawl_time
+        <if test="description != null and description != ''">, description</if>
+        <if test="updateTime != null and updateTime != ''">, update_time</if>
+        <if test="category != null">, category</if>
+        ) VALUES (
+        #{fileName}, #{path}, #{url}, #{crawlTime}
+        <if test="description != null and description != ''">, #{description}</if>
+        <if test="updateTime != null">, #{updateTime}</if>
+        <if test="category != null">, #{category}</if>
+        ) ON DUPLICATE KEY UPDATE
+        crawl_time = #{crawlTime}, update_time = #{updateTime}
+    </insert>
+
+</mapper>

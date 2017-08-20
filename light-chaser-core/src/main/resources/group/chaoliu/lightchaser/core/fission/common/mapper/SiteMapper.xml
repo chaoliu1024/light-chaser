@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.common.mapper.SiteMapper">
+
+    <select id="fetchSite" parameterType="Site" resultType="Site">
+        SELECT s.* FROM site s WHERE s.`domain_key`=#{domainKey};
+    </select>
+
+    <insert id="insertSite" parameterType="Site">
+        INSERT INTO `site`(
+        domain_key
+        <if test="domainName != null">, domain_name</if>
+        )
+        VALUES(
+        #{domainKey}
+        <if test="domainName != null">, #{domainName}</if>
+        );
+    </insert>
+
+</mapper>

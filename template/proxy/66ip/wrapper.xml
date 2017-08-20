@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wrappers>
-    <wrapper levelId="100" type="html">
-        <node name="proxy" nullable="0" xpath="//div[contains(@align, 'center')]/table/tbody/tr" type="list">
-            <node name="host" nullable="0" xpath="./td[1]/text()"/>
-            <node name="port" nullable="0" xpath="./td[2]/text()"/>
-        </node>
-    </wrapper>
-</wrappers>

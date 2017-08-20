@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.ota.mapper.ProductMapper">
+    <select id="fetchProductByID" parameterType="int" resultType="Product">
+        select * from product where id = #{id}
+    </select>
+
+    <insert id="insertProduct" parameterType="Product">
+        INSERT INTO `ota_product`(
+        site, product_type, product_id, product_name, url, crawl_time
+        <if test="departureCity != null">, departure_city</if>
+        <if test="price != null">, price</if>
+        ) VALUES (
+        #{site}, #{productType}, #{productId}, #{productName}, #{url}, #{crawlTime}
+        <if test="departureCity != null">, #{departureCity}</if>
+        <if test="price != null">, #{price}</if>
+        )
+        ON DUPLICATE KEY UPDATE
+        product_name = #{productName}, url = #{url}, crawl_time = #{crawlTime}
+    </insert>
+</mapper>

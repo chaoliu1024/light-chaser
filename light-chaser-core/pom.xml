@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>light-chaser</artifactId>
-        <groupId>me.chaoliu.lightchaser</groupId>
+        <groupId>group.chaoliu.lightchaser</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>light-chaser-core</artifactId>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <httpcomponents.version>4.5.2</httpcomponents.version>
+        <netty.version>5.0.0.Alpha1</netty.version>
+
+        <!-- hbase 使用的2.5.0 的protobuf, 因此3.0+的不可用 -->
+        <!-- https://stackoverflow.com/questions/41734330/protobuf-error-hbase-createtable-put-in-java-codeprotobuf-literalbytestring -->
+        <protobuf.version>2.5.0</protobuf.version>
+        <hbase.version>1.3.0</hbase.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>${httpcomponents.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>
-            <version>4.5.2</version>
+            <version>${httpcomponents.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
@@ -55,7 +66,7 @@
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
-            <version>0.98.17-hadoop2</version>
+            <version>${hbase.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -82,5 +93,83 @@
             <artifactId>tika-parsers</artifactId>
             <version>1.14</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <!-- mvn clean package -X -Dmaven.test.skip=true -->
+                <!-- https://maven.apache.org/plugins/maven-shade-plugin/shade-mojo.html -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>false</minimizeJar>
+                            <artifactSet>
+                            </artifactSet>
+                            <relocations>
+                            </relocations>
+                            <filters>
+                                <filter>
+                                    <artifact>commons-io:commons-io</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/LICENSE.txt</exclude>
+                                        <exclude>META-INF/NOTICE.txt</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.apache.httpcomponents:http*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/LICENSE.txt</exclude>
+                                        <exclude>META-INF/NOTICE.txt</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <!-- spring.handlers和spring.schemas文件以append方式加入到构建的jar包中 -->
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.handlers</resource>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.schemas</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
 </project>

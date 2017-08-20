@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+    <headers>
+        <User-Agent>Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</User-Agent>
+        <Accept-Language>zh-CN,zh;q=0.8</Accept-Language>
+        <Accept-Encoding>gzip, deflate, sdch</Accept-Encoding>
+        <Referer>http://vacations.ctrip.com/</Referer>
+    </headers>
+    <parameters>
+        <interval_min>500</interval_min>
+        <interval_max>1000</interval_max>
+        <http_socket_timeout>10000</http_socket_timeout>
+        <http_connect_timeout>5000</http_connect_timeout>
+        <backup_intervals>10</backup_intervals>
+    </parameters>
+    <url_levels name="All Levels">
+        <level id="50">
+            <!-- detail page -->
+            <plugin name="detailPage" class="XPath" level="100">
+                <xpath>
+                    //div[contains(@class,'main_col')]//div[contains(@class,'product_main')]/h2/a/@href
+                </xpath>
+                <plugin class="Replace">
+                    <regex>(.*)</regex>
+                    <result>http:\1</result>
+                </plugin>
+            </plugin>
+
+            <!-- all list pages -->
+            <plugin name="listPage" class="ThisURL" level="50">
+                <plugin class="Replace">
+                    <regex>(.*freetravel/ss\d+p)\d+</regex>
+                    <result>\1</result>
+                    <plugin class="PageRange">
+                        <xpath>//a[contains(@class, "down")]/preceding-sibling::a[1]</xpath>
+                        <regex>(\d+)</regex>
+                        <result>\1</result>
+                    </plugin>
+                </plugin>
+            </plugin>
+        </level>
+
+        <!-- diy calendar price -->
+        <level id="100" merge="focus">
+            <plugin name="calendarPrice" class="MultipleConcat" level="110" response-headers="Server">
+                <part>http://taocan.ctrip.com/freetravel/Calendar/Calendar?ProductId=</part>
+                <part type="URL">.*freetravel/p(\d+)s\d+.*</part>
+                <part>&amp;SalesCityId=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'SalesCityId:')],'SalesCityId:'),',')
+                </part>
+                <part>&amp;StartCityId=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'StartCityId:')],'StartCityId:'),',')
+                </part>
+                <part>&amp;EffectTime=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'EffectTime')],'EffectTime: "'),'"')
+                </part>
+                <part>&amp;ExpireTime=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'ExpireTime')],'ExpireTime:"'),'"')
+                </part>
+                <part>&amp;IsSupperOrder=false&amp;StartDate=</part>
+            </plugin>
+        </level>
+
+        <level id="110" merge="100" method="post"/>
+    </url_levels>
+</configs>

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package protobuf;
+
+option java_package = "group.chaoliu.lightchaser.core.transfer.netty.protobuf";
+option java_outer_classname = "MessageProto";
+
+import "CrawlerMsg.proto";
+import "Heartbeat.proto";
+
+message Message {
+  CrawlerMsg crawlerMsg = 1;
+  Heartbeat heartbeat = 2;
+}

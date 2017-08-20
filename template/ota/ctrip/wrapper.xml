@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wrappers>
+    <!-- detail page, url likes: http://vacations.ctrip.com/grouptravel/p9585134s2.html -->
+    <wrapper levelId="100" type="html">
+        <node name="productId" nullable="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*freetravel\/p(\d+s\d+).*</regex>
+                    <result>\1</result>
+                </plugin>
+            </plugin>
+        </node>
+
+        <!-- 产品名称 -->
+        <node name="productName" nullable="0" xpath="//div[contains(@class,'detail_main_title')]/h2/text()"/>
+
+        <node name="url" nullable="0">
+            <plugin class="ThisURL"/>
+        </node>
+
+        <!-- 出发地 -->
+        <node name="departureCity" nullable="0" xpath="//li[contains(@class,'product_city')]/span/text()">
+            <plugin class="Replace">
+                <regex>出发地：(.*)</regex>
+                <result>\1</result>
+            </plugin>
+        </node>
+
+        <node name="price" nullable="0" xpath="//div[contains(@class,'price_suggest')]/text()"/>
+
+    </wrapper>
+
+    <!-- date price page, url likes: http://taocan.ctrip.com/freetravel/Calendar/Calendar?ProductId=1017289044&SalesCityId=12&StartCityId=12&EffectTime=2017-5-25 0:00:00&ExpireTime=2017-8-31 0:00:00&IsSupperOrder=false&StartDate= -->
+    <wrapper levelId="110" type="json">
+        <node name="productId" allownull="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*ProductId\=(\d+)&amp;SalesCityId\=(\d+).*</regex>
+                    <result>\1s\2</result>
+                </plugin>
+            </plugin>
+        </node>
+        <node name="calendarPrice" nullable="0" key="data.AvailableDates">
+            <node name="price" nullable="0" key="MinPrice"/>
+            <node name="date" nullable="0" key="Date"/>
+        </node>
+    </wrapper>
+</wrappers>

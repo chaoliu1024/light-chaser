@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.common.mapper.JobTypeMapper">
+
+    <insert id="insertJobType" parameterType="JobType">
+        INSERT INTO `job_type`(job_name) VALUES(#{jobName})
+    </insert>
+
+    <select id="fetchJobType" resultType="JobType">
+        SELECT j.* FROM `job_type` j WHERE j.`job_name`=#{jobName}
+    </select>
+
+</mapper>

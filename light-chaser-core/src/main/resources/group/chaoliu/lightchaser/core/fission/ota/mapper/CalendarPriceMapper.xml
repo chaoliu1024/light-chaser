@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.ota.mapper.CalendarPriceMapper">
+
+    <select id="fetchDatePriceByID" parameterType="int" resultType="CalendarPrice">
+        select * from date_price where id = #{id}
+    </select>
+
+    <insert id="insertCalendarPrice" parameterType="CalendarPrice">
+        INSERT INTO `ota_calendar_price`(
+        site, product_type, product_id, book_city, `date`, price, crawl_time
+        ) VALUES
+        <foreach collection="calendarPrices" item="calendarPrice" separator=",">
+            (
+            #{calendarPrice.site}, #{calendarPrice.productType}, #{calendarPrice.productId}
+            <choose>
+                <when test="calendarPrice.bookCity != null ">, #{calendarPrice.bookCity}</when>
+                <otherwise>, ''</otherwise>
+            </choose>
+            , #{calendarPrice.date}, #{calendarPrice.price}, #{calendarPrice.crawlTime}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        `book_city` = VALUES(`book_city`), `date` = VALUES(`date`),
+        `price` = VALUES(`price`), `crawl_time` = VALUES(`crawl_time`)
+    </insert>
+</mapper>
