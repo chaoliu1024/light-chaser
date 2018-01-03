@@ -22,6 +22,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Calendar Price VO
+ *
+ * @author chao liu
+ * @since Light Chaser 0.0.1
+ */
 @Setter
 @Getter
 public class OTACalendarPriceVO {
@@ -35,4 +41,10 @@ public class OTACalendarPriceVO {
      * 价格
      */
     private BigDecimal price;
+
+    @Override
+    public String toString() {
+        return "OTACalendarPriceVO{date=" + date + ", price=" + price + "}";
+    }
+
 }

@@ -16,6 +16,7 @@
 
 package group.chaoliu.lightchaser.core.parser.template.plugins;
 
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.parser.template.Parse;
 import group.chaoliu.lightchaser.core.parser.template.ParseAction;
@@ -47,9 +48,11 @@ public class MultipleConcat implements Parse {
     @Override
     public List<CrawlerMessage> parse(CrawlerMessage crawlerMsg, Element pluginEle) {
 
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+
         List<CrawlerMessage> reqMsgs = new ArrayList<>();
 
-        log.debug("\tthis URL: {}", crawlerMsg.getRequestMsg().getURL());
+        log.debug("\tthis URL: {}", queueMsg.getRequestMsg().getURL());
         log.debug("\tlevel   : {}", pluginEle.attributeValue("level"));
 
         @SuppressWarnings("unchecked")
@@ -86,7 +89,7 @@ public class MultipleConcat implements Parse {
             } else if ("URL".equals(partEle.attributeValue("type"))) {
 
                 Pattern p = Pattern.compile(partContent);
-                Matcher matcher = p.matcher(crawlerMsg.getRequestMsg().getURL());
+                Matcher matcher = p.matcher(queueMsg.getRequestMsg().getURL());
 
                 if (matcher.matches()) {
                     List<String> temps = new ArrayList<>();

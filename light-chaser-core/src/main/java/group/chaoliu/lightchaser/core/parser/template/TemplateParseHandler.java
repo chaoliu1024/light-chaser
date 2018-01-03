@@ -16,10 +16,11 @@
 
 package group.chaoliu.lightchaser.core.parser.template;
 
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.crawl.template.CrawlTemplate;
 import group.chaoliu.lightchaser.core.crawl.template.CrawlTemplateException;
-import group.chaoliu.lightchaser.core.daemon.Job;
 import group.chaoliu.lightchaser.core.daemon.planet.Planet;
 import group.chaoliu.lightchaser.core.parser.ParseHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ import org.dom4j.Node;
 import java.util.List;
 
 /**
- * JobTemplate parse handler, which parse the result according to crawl_path.xml.
+ * Category Template parse handler, which parse the result according to crawl_path.xml.
  *
  * @author chao liu
  * @since Light Chaser 0.0.1
@@ -41,7 +42,9 @@ public class TemplateParseHandler implements ParseHandler {
 
     public static final String MERGE_KEY = "merge";
 
-    // 对应crawl_path.xml中 <level merge="focus">
+    /**
+     * 对应crawl_path.xml中 <level merge="focus">
+     */
     public static final String MERGE_XML_VALUE = "focus";
 
     public static final String FOCUS_ID_KEY = "focus_id";
@@ -54,13 +57,15 @@ public class TemplateParseHandler implements ParseHandler {
 
 
     public static Element crawlLevelElement(CrawlerMessage crawlerMgs) {
-        Job job = crawlerMgs.getJob();
-        CrawlTemplate crawlConfig = Planet.templateCache.getTemplates().get(job).getCrawlTemplate();
+        Category category = crawlerMgs.getQueueMessage().getCategory();
+        CrawlTemplate crawlConfig = Planet.templateCache.getTemplates().get(category).getCrawlTemplate();
         Element urlLevelsElement = crawlConfig.getUrlLevelsSet();
-        Node levelNode = urlLevelsElement.selectSingleNode(String.format("//level[@id=\"%s\"]", crawlerMgs.getURLLevel()));
+        QueueMessage queueMsg = crawlerMgs.getQueueMessage();
+
+        Node levelNode = urlLevelsElement.selectSingleNode(String.format("//level[@id=\"%s\"]", queueMsg.getUrlLevel()));
 
         if (null == levelNode) {
-            throw new CrawlTemplateException("crawl template error! the unknown url level is " + crawlerMgs.getURLLevel());
+            throw new CrawlTemplateException("crawl template error! the unknown url level is " + queueMsg.getUrlLevel());
         }
         if (levelNode.getNodeType() == Element.ELEMENT_NODE) {
             return (Element) levelNode;
@@ -89,7 +94,7 @@ public class TemplateParseHandler implements ParseHandler {
             }
 
             for (CrawlerMessage message : messages) {
-                log.info("new urls is: {}", message.getRequestMsg().getURL());
+                log.info("new urls is: {}", message.getQueueMessage().getRequestMsg().getURL());
             }
 
             String mergeInfo = levelElement.attributeValue(MERGE_KEY);

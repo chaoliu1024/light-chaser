@@ -16,7 +16,8 @@
 
 package group.chaoliu.lightchaser.core.crawl.template;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.Category;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -75,9 +76,9 @@ public class CrawlTemplate extends Template {
     @Setter
     private int maxInterval = 0;
 
-    public CrawlTemplate(Job job) {
-        String configPath = templateRootPath + job.getType() + File.separator +
-                job.getName() + File.separator + "crawl_path.xml";
+    public CrawlTemplate(Category category) {
+        String configPath = templateRootPath + category.getType() + File.separator +
+                category.getName() + File.separator + "crawl_path.xml";
         readCrawlerConfig(configPath);
     }
 

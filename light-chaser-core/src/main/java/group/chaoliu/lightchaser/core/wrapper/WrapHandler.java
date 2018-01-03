@@ -28,5 +28,12 @@ import java.util.Map;
  */
 public interface WrapHandler {
 
-    Map wrap(CrawlerMessage crawlerMgs);
+    /**
+     * Extract response message to format data.
+     *
+     * @param crawlerMgs crawler message
+     * @return format data
+     */
+    WrapResult wrap(CrawlerMessage crawlerMgs);
+
 }

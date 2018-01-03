@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+package protobuf;
+
+option java_package = "group.chaoliu.lightchaser.rpc.netty.protobuf";
+option java_outer_classname = "MessageProto";
+
+import "QueueMsg.proto";
+import "Heartbeat.proto";
+
+message Message {
+    optional QueueMsg queueMsg = 1;
+    optional Heartbeat heartbeat = 2;
+    enum MsgType {
+        REQ_MSG = 0;    // 请求消息
+        HEART_BEAT = 1; // 心跳
+        CRAWL_MSG = 2;  // 爬取信息
+    }
+    optional MsgType msgType = 3 [default = REQ_MSG];
+}

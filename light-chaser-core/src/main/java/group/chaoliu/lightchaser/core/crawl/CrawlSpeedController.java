@@ -16,7 +16,8 @@
 
 package group.chaoliu.lightchaser.core.crawl;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+
+import group.chaoliu.lightchaser.common.Category;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,15 +31,15 @@ import java.util.Map;
 public class CrawlSpeedController {
 
     // TODO 需要多线程安全
-    private Map<Job, SiteSpeed> speedCache = new HashMap<>();
+    private Map<Category, SiteSpeed> speedCache = new HashMap<>();
 
-    public Map<Job, SiteSpeed> getSpeedCache() {
+    public Map<Category, SiteSpeed> getSpeedCache() {
         return this.speedCache;
     }
 
     // TODO 需要多线程安全？
-    public void setSiteSpeed(Job job, SiteSpeed speed) {
-        speedCache.put(job, speed);
+    public void setSiteSpeed(Category category, SiteSpeed speed) {
+        speedCache.put(category, speed);
     }
 
     /**

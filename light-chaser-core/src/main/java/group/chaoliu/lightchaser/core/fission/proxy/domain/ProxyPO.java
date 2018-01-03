@@ -61,19 +61,29 @@ public class ProxyPO {
     private float costTime;
 
     /**
-     * 1:外部代理， 2:内部代理
-     */
-    private boolean isInternet;
-
-    /**
      * 0:不可用,数字越高,验证的网站越多,代理质量越好
      */
     private int level;
 
     /**
+     * 1:外部代理， 2:内部代理
+     */
+    private boolean isInternet = true;
+
+    /**
      * 代理验证连续失败次数
      */
-    private int failedNum;
+    private int failedCount;
+
+    /**
+     * 获取该代理的网站主域名
+     */
+    private String domainKey;
+
+    /**
+     * 首次抓取时间
+     */
+    private Date crawlTime;
 
     /**
      * 更新时间

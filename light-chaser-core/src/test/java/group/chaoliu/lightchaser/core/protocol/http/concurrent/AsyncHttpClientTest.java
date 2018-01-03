@@ -16,9 +16,9 @@
 
 package group.chaoliu.lightchaser.core.protocol.http.concurrent;
 
-import group.chaoliu.lightchaser.core.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
 import group.chaoliu.lightchaser.core.protocol.http.RequestMethod;
-import group.chaoliu.lightchaser.core.protocol.http.ResponseMessage;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;

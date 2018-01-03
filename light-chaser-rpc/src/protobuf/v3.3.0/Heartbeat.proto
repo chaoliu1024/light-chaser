@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package protobuf;
+
+option java_package = "group.chaoliu.lightchaser.rpc.netty.protobuf";
+option java_outer_classname = "HeartbeatProto";
+
+message Heartbeat {
+    int32 code = 1;
+    int64 heapMemory = 2;
+    int32 port = 3;
+}

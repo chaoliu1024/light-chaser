@@ -16,6 +16,9 @@
 
 package group.chaoliu.lightchaser.core.protocol.http;
 
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
+
 /**
  * Methods of HTTP Protocol
  *

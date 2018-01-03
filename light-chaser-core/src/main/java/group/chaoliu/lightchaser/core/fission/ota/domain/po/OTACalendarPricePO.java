@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Date Price
+ * Calendar Price PC
  *
  * @author chao liu
  * @since Light Chaser 0.0.1
@@ -71,5 +71,12 @@ public class OTACalendarPricePO {
      * 抓取时间
      */
     private Date crawlTime;
+
+    @Override
+    public String toString() {
+        return "OTACalendarPricePO{id=" + id + ", site=" + site + ", productType=" + productType +
+                ", productId='" + productId + '\'' + ", bookCity='" + bookCity + '\'' +
+                ", date=" + date + ", price=" + price + ", crawlTime=" + crawlTime + "}";
+    }
 
 }

@@ -3,21 +3,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="group.chaoliu.lightchaser.core.fission.ota.mapper.ProductMapper">
+
+    <sql id="baseTable">
+        `ota_product_${suffix}`
+    </sql>
+
     <select id="fetchProductByID" parameterType="int" resultType="Product">
-        select * from product where id = #{id}
+        select * from <include refid="baseTable" /> where id = #{id}
     </select>
 
     <insert id="insertProduct" parameterType="Product">
-        INSERT INTO `ota_product`(
+        INSERT INTO <include refid="baseTable" />(
         site, product_type, product_id, product_name, url, crawl_time
-        <if test="departureCity != null">, departure_city</if>
-        <if test="price != null">, price</if>
+        <if test="product.departureCity != null">, departure_city</if>
+        <if test="product.destination != null">, destination</if>
+        <if test="product.price != null">, price</if>
         ) VALUES (
-        #{site}, #{productType}, #{productId}, #{productName}, #{url}, #{crawlTime}
-        <if test="departureCity != null">, #{departureCity}</if>
-        <if test="price != null">, #{price}</if>
+        #{product.site}, #{product.productType}, #{product.productId},
+        #{product.productName}, #{product.url}, #{product.crawlTime}
+        <if test="product.departureCity != null">, #{product.departureCity}</if>
+        <if test="product.destination != null">, #{product.destination}</if>
+        <if test="product.price != null">, #{product.price}</if>
         )
         ON DUPLICATE KEY UPDATE
-        product_name = #{productName}, url = #{url}, crawl_time = #{crawlTime}
+        product_name = #{product.productName}, url = #{product.url},
+        crawl_time = #{product.crawlTime}, destination = #{product.destination}
     </insert>
 </mapper>

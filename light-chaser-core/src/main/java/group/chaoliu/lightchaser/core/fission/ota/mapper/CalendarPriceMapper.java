@@ -29,7 +29,20 @@ import java.util.List;
 @Repository
 public interface CalendarPriceMapper {
 
-    OTACalendarPricePO fetchDatePriceByID(int id);
+    /**
+     * Fetch calendar prices by id.
+     *
+     * @param id id
+     * @return calendar price
+     */
+    OTACalendarPricePO fetchCalendarPriceByID(int id);
 
-    void insertCalendarPrice(@Param("calendarPrices") List<OTACalendarPricePO> CalendarPrices);
+    /**
+     * Insert calendar price to db.
+     *
+     * @param calendarPrices calendar prices
+     * @param suffix         suffix of table
+     */
+    void insertCalendarPrice(@Param("calendarPrices") List<OTACalendarPricePO> calendarPrices,
+                             @Param("suffix") String suffix);
 }

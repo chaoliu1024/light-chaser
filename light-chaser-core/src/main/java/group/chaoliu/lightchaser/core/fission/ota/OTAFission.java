@@ -53,10 +53,12 @@ public class OTAFission extends BaseFission {
 //    @Transactional
     public void fission(Map data) {
 
+        String suffix = (String) data.get(Wrapper.CATEGORY_SUFFIX);
+
         if (!data.isEmpty() && null != data.get(Wrapper.DATA_KEY)) {
             OTAProductVO otaProductVO = JSON.parseObject(JSON.toJSONString(data.get(Wrapper.DATA_KEY)), OTAProductVO.class);
-            saveProduct(otaProductVO);
-            saveCalendarPricePO(otaProductVO);
+            saveProduct(otaProductVO, suffix);
+            saveCalendarPricePO(otaProductVO, suffix);
         }
     }
 
@@ -64,24 +66,25 @@ public class OTAFission extends BaseFission {
     public void finish() {
     }
 
-    private void saveProduct(OTAProductVO otaProductVO) {
+    private void saveProduct(OTAProductVO otaProductVO, String suffix) {
         OTAProductPO product = new OTAProductPO();
         product.setProductId(otaProductVO.getProductId());
         product.setProductName(otaProductVO.getProductName());
         product.setUrl(otaProductVO.getUrl());
         product.setDepartureCity(otaProductVO.getDepartureCity());
+        product.setDestination(otaProductVO.getDestination());
         product.setPrice(otaProductVO.getPrice());
         product.setProductType(1);
         product.setSite(1);
         product.setCrawlTime(otaProductVO.getCrawlTime());
-        productMapper.insertProduct(product);
+        productMapper.insertProduct(product, suffix);
     }
 
-    private void saveComment(OTAProductVO otaProductVO) {
+    private void saveComment(OTAProductVO otaProductVO, String suffix) {
 
     }
 
-    private void saveCalendarPricePO(OTAProductVO otaProductVO) {
+    private void saveCalendarPricePO(OTAProductVO otaProductVO, String suffix) {
         List<OTACalendarPriceVO> calendarPrices = otaProductVO.getCalendarPrice();
 
         List<OTACalendarPricePO> calendarPricesPO = new ArrayList<>();
@@ -96,6 +99,6 @@ public class OTAFission extends BaseFission {
             calendarPricePO.setCrawlTime(otaProductVO.getCrawlTime());
             calendarPricesPO.add(calendarPricePO);
         }
-        calendarPriceMapper.insertCalendarPrice(calendarPricesPO);
+        calendarPriceMapper.insertCalendarPrice(calendarPricesPO, suffix);
     }
 }

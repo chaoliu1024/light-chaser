@@ -16,6 +16,9 @@
 
 package group.chaoliu.lightchaser.core.protocol.http;
 
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
 import group.chaoliu.lightchaser.core.persistence.ImageStore;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -59,6 +62,8 @@ public abstract class BasicHttpClient implements HttpMethods {
 
     private static final int MAX_TOTAL = 200;
     private static final int MAX_PER_ROUTE = 20;
+
+    private static final Pattern CHARSET_PATTERN = Pattern.compile(".*charset=(.*)");
 
     protected RequestConfig requestConfig() {
         RequestConfig.Builder builder = RequestConfig.custom();
@@ -149,8 +154,8 @@ public abstract class BasicHttpClient implements HttpMethods {
         if (null != entity.getContentType()) {
             String contentType = entity.getContentType().getValue();
             log.debug("ContentType in HttpEntity is: {}", contentType);
-            Pattern p = Pattern.compile(".*charset=(.*)");
-            Matcher m = p.matcher(contentType);
+
+            Matcher m = CHARSET_PATTERN.matcher(contentType);
             if (m.matches()) {
                 charset = m.group(1);
                 try {
@@ -234,16 +239,49 @@ public abstract class BasicHttpClient implements HttpMethods {
     }
 
     /**
-     * get domain name of an url
+     * Get domain name of an url. <br>
+     * e.g. "http://www.66ip.cn/1.html" --> 66ip.cn <br>
+     * "https://www.google.com.hk/" --> google.com.hk <br>
+     * "http://vacations.ctrip.com/tours/d-rizhao-622/grouptravel"  --> vacations.ctrip.com
      *
      * @param url url
      * @return domain name
      */
     public static String getDomainName(String url) {
+        String host = host(url);
+        if (StringUtils.isNotBlank(host)) {
+            return host.startsWith("www.") ? host.substring(4) : host;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get domain key of an url. <br>
+     * e.g. "http://www.66ip.cn/1.html" --> <b>66ip</b> <br>
+     * "https://www.google.com.hk/" --> <b>google</b> <br>
+     * "http://vacations.ctrip.com/tours/d-rizhao-622/grouptravel"  --> <b>ctrip</b>
+     *
+     * @param url url
+     * @return domain key
+     */
+    public static String getDomainKey(String url) {
+        try {
+            String host = host(url);
+            if (StringUtils.isNotBlank(host)) {
+                return host.split("\\.")[1];
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static String host(String url) {
         try {
             URI uri = new URI(url);
-            String domain = uri.getHost();
-            return domain.startsWith("www.") ? domain.substring(4) : domain;
+            return uri.getHost();
         } catch (URISyntaxException e) {
             return null;
         }

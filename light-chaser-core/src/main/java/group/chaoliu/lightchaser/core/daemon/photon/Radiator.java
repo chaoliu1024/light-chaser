@@ -16,32 +16,38 @@
 
 package group.chaoliu.lightchaser.core.daemon.photon;
 
-import group.chaoliu.lightchaser.core.fission.proxy.mapper.ProxyMapper;
-import group.chaoliu.lightchaser.core.protocol.http.Proxy;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import group.chaoliu.lightchaser.common.config.YamlConfig;
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
+import group.chaoliu.lightchaser.core.daemon.photon.thread.ValidateProxyThread;
+import group.chaoliu.lightchaser.core.fission.proxy.ProxyService;
+import group.chaoliu.lightchaser.core.util.SpringBeanUtil;
+import group.chaoliu.lightchaser.rpc.netty.proxy.ProxyCache;
+import group.chaoliu.lightchaser.rpc.netty.proxy.ProxyServerSocket;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
+import java.util.concurrent.*;
 
 /**
+ * 代理服务
+ *
  * @author chao liu
  * @since Light Chaser 0.0.1
  */
+@Slf4j
 public class Radiator {
 
-    public static final ApplicationContext CONTEXT = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-    private ProxyMapper proxyMapper = CONTEXT.getBean(ProxyMapper.class);
-
-    private List<Proxy> cacheProxy;
+    private ProxyService proxyService = SpringBeanUtil.proxyServiceBean();
 
     private ScheduledExecutorService proxyScheduledThreadPool = Executors.newScheduledThreadPool(1);
 
+    private ProxyCache proxiesCache = ProxyCache.proxyCacheInstance();
+
     public Radiator() {
+        List<Proxy> cache = proxyService.fetchCtripProxies();
+        proxiesCache.setProxies(cache);
         refreshProxies();
     }
 
@@ -49,7 +55,8 @@ public class Radiator {
         proxyScheduledThreadPool.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                cacheProxy = proxyMapper.fetchCommonUsableProxies();
+                log.info("刷新代理缓存...");
+                proxiesCache.setProxies(proxyService.fetchCtripProxies());
             }
         }, 0xa, 10, TimeUnit.MINUTES);
     }
@@ -60,18 +67,19 @@ public class Radiator {
         }
     }
 
-    public Proxy randomProxy() {
-        int size = cacheProxy.size();
-        Random r = new Random();
-        int i = r.nextInt(size) % (size - 1);
-        return cacheProxy.get(i);
+    public void run(Map proxyConfig) {
+        refreshProxies();
+
+        ThreadFactory thread = new ThreadFactoryBuilder().setNameFormat("proxy-server-socket-thread").build();
+        ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(1024), thread, new ThreadPoolExecutor.AbortPolicy());
+        singleThreadPool.execute(new ProxyServerSocket(proxyConfig));
     }
 
     public static void main(String[] args) {
+        Map proxyConfig = YamlConfig.readProxyConfig();
         Radiator radiator = new Radiator();
-        radiator.refreshProxies();
-        for (int i = 0; i < 20; i++) {
-            System.out.println(radiator.randomProxy());
-        }
+        radiator.run(proxyConfig);
     }
+
 }

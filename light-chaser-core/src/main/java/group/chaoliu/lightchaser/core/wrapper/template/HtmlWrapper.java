@@ -42,11 +42,11 @@ import java.util.Map;
 @Slf4j
 public class HtmlWrapper extends Wrapper {
 
-    public HtmlWrapper(Node node) {
-        super(node);
+    public HtmlWrapper(Element element) {
+        super(element);
     }
 
-    private Map result = new HashMap();
+    private Map<String, String> result = new HashMap<>();
 
     @Override
     public Map extract(WrapperEntity wrapperEntity) {
@@ -57,21 +57,19 @@ public class HtmlWrapper extends Wrapper {
 
         result.put(DATA_KEY, null);
 
-        extractFields(super.wrapperNode, htmlNode, result, wrapperEntity);
+        extractFields(super.wrapperEle, htmlNode, result, wrapperEntity);
 
         return result;
     }
 
     /**
-     * @param wrapNode wrapper xml node
-     * @param html     html node
-     * @param fields   result fields
-     * @param entity   wrapper entity
+     * @param wrapEle wrapper xml node
+     * @param html    html node
+     * @param fields  result fields
+     * @param entity  wrapper entity
      */
-    public void extractFields(Node wrapNode, Object html,
+    public void extractFields(Element wrapEle, Object html,
                               Map<String, String> fields, WrapperEntity entity) {
-
-        Element wrapEle = (Element) wrapNode;
 
         if (html instanceof String) {
             if (Dom4jUtil.isAttributeNotBlank(wrapEle, Wrapper.NODE_NAME)) {
@@ -101,7 +99,7 @@ public class HtmlWrapper extends Wrapper {
             }
         } else {
             // recurse extract plugin node
-            List<WrapperEntity> res = extractFields(entity, wrapNode);
+            List<WrapperEntity> res = extractFields(entity, wrapEle);
 
             if (res.size() == 1) {
                 WrapperEntity r = res.get(0);
@@ -151,7 +149,8 @@ public class HtmlWrapper extends Wrapper {
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     org.w3c.dom.Node pageNode = nodeList.item(i);
 
-                    entity.setText(pageNode.getNodeValue());  // xpath="." text=null
+                    // xpath="." text=null
+                    entity.setText(pageNode.getNodeValue());
                     Map<String, String> field;
                     if ("list".equals(fieldEle.attributeValue(NODE_TYPE))) {
                         field = newField(fieldEle, true);
@@ -160,7 +159,7 @@ public class HtmlWrapper extends Wrapper {
                     }
                     if (null != field) {
                         mergeFields(fields, field, wrapEle);
-                        extractFields(fieldNode, pageNode, field, entity);
+                        extractFields(fieldEle, pageNode, field, entity);
                     }
                 }
             } else if (result instanceof String) {
@@ -168,7 +167,7 @@ public class HtmlWrapper extends Wrapper {
                 Map<String, String> field = newField(fieldEle, false);
                 if (null != field) {
                     mergeFields(fields, field, wrapEle);
-                    extractFields(fieldNode, result, field, entity);
+                    extractFields(fieldEle, result, field, entity);
                 }
             }
         }

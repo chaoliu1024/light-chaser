@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+    <headers>
+        <User-Agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</User-Agent>
+        <Origin>http://www.tuniu.com</Origin>
+        <Accept-Language>zh-CN,zh;q=0.8</Accept-Language>
+        <Accept-Encoding>gzip, deflate</Accept-Encoding>
+        <Accept>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</Accept>
+        <Referer>http://www.tuniu.com/domestic/package/</Referer>
+    </headers>
+    <parameters>
+        <interval_min>500</interval_min>
+        <interval_max>1000</interval_max>
+        <http_socket_timeout>10000</http_socket_timeout>
+        <http_connect_timeout>5000</http_connect_timeout>
+        <backup_intervals>10</backup_intervals>
+    </parameters>
+    <url_levels name="All Levels">
+        <level id="50">
+            <!-- detail page -->
+            <plugin name="detailPage" class="XPath" level="100">
+                <xpath>//div[contains(@class,"thelist")]/ul/li/div[contains(@class, "theinfo")]/a/@href</xpath>
+            </plugin>
+
+            <!-- all list pages -->
+            <plugin name="listPage" class="ThisURL" level="50">
+                <plugin class="Replace">
+                    <regex>(.*\/)\d+\/</regex>
+                    <result>\1</result>
+                    <plugin class="PageRange">
+                        <xpath>//div[contains(@class,"page-bottom")]/a[contains(@class,"page-next")]/preceding-sibling::a[1]/text()</xpath>
+                        <regex>(\d+)</regex>
+                        <result>\1</result>
+                    </plugin>
+                </plugin>
+            </plugin>
+        </level>
+
+        <!-- diy calendar price -->
+        <level id="100" merge="focus">
+            <plugin name="calendarPrice" class="MultipleConcat" level="110" response-headers="Server">
+                <part>http://www.tuniu.com/tn?r=detail/tourV3Ajax/calendar&amp;id=</part>
+                <part type="URL">.*tours/(\d+)</part>
+                <part>&amp;backCityCode=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'backCityCode')],'backCityCode: '),',')
+                </part>
+                <part>&amp;departCityCode=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'departCityCode')],'departCityCode: '),',')
+                </part>
+                <part>&amp;bookCityCode=</part>
+                <part type="XPath">
+                    substring-before(substring-after(//script[contains(child::text(),'bookCityCode')],'bookCityCode: '),',')
+                </part>
+                <part>&amp;refreshFileCache=0&amp;type=json</part>
+            </plugin>
+        </level>
+
+        <level id="110" merge="100"/>
+    </url_levels>
+</configs>

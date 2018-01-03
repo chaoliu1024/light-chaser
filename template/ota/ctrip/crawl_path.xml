@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configs>
     <headers>
-        <User-Agent>Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</User-Agent>
+        <User-Agent>Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116
+            Safari/537.36
+        </User-Agent>
         <Accept-Language>zh-CN,zh;q=0.8</Accept-Language>
         <Accept-Encoding>gzip, deflate, sdch</Accept-Encoding>
         <Referer>http://vacations.ctrip.com/</Referer>
@@ -42,29 +44,70 @@
 
         <!-- diy calendar price -->
         <level id="100" merge="focus">
-            <plugin name="calendarPrice" class="MultipleConcat" level="110" response-headers="Server">
-                <part>http://taocan.ctrip.com/freetravel/Calendar/Calendar?ProductId=</part>
-                <part type="URL">.*freetravel/p(\d+)s\d+.*</part>
-                <part>&amp;SalesCityId=</part>
-                <part type="XPath">
-                    substring-before(substring-after(//script[contains(child::text(),'SalesCityId:')],'SalesCityId:'),',')
-                </part>
-                <part>&amp;StartCityId=</part>
-                <part type="XPath">
-                    substring-before(substring-after(//script[contains(child::text(),'StartCityId:')],'StartCityId:'),',')
-                </part>
-                <part>&amp;EffectTime=</part>
-                <part type="XPath">
-                    substring-before(substring-after(//script[contains(child::text(),'EffectTime')],'EffectTime: "'),'"')
-                </part>
-                <part>&amp;ExpireTime=</part>
-                <part type="XPath">
-                    substring-before(substring-after(//script[contains(child::text(),'ExpireTime')],'ExpireTime:"'),'"')
-                </part>
-                <part>&amp;IsSupperOrder=false&amp;StartDate=</part>
+            <plugin name="calendarPrice" class="If" level="110" response-headers="Server">
+                <!-- 从URL中匹配 -->
+                <find type="URL" relation="and">.*(taocan).*</find>
+                <!-- 从页面匹配 -->
+                <!--<find type="Page" relation="or"></find>-->
+
+                <!-- http://taocan.ctrip.com/freetravel/p2855605s12.html -->
+                <plugin class="MultipleConcat">
+                    <part>http://taocan.ctrip.com/freetravel/Calendar/Calendar?ProductId=</part>
+                    <part type="URL">.*freetravel/p(\d+)s\d+.*</part>
+                    <part>&amp;SalesCityId=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'SalesCityId:')],'SalesCityId:'),',')
+                    </part>
+                    <part>&amp;StartCityId=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'StartCityId:')],'StartCityId:'),',')
+                    </part>
+                    <part>&amp;EffectTime=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'EffectTime')],'EffectTime:
+                        "'),'"')
+                    </part>
+                    <part>&amp;ExpireTime=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'ExpireTime')],'ExpireTime:"'),'"')
+                    </part>
+                    <part>&amp;IsSupperOrder=false&amp;StartDate=</part>
+                </plugin>
+            </plugin>
+
+            <plugin name="calendarPrice" class="If" level="111" response-headers="Server">
+                <find type="URL" relation="and">.*(vacations).*</find>
+                <!-- http://vacations.ctrip.com/morelinetravel/p2599687s12.html -->
+                <plugin class="MultipleConcat">
+                    <part>http://vacations.ctrip.com/bookingnext/CalendarV2/CalendarInfo?ProductID=</part>
+                    <part type="URL">.*freetravel/p(\d+)s\d+.*</part>
+                    <part>&amp;SalesCity=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'SalesCity:')],'SalesCity:'),',')
+                    </part>
+                    <part>&amp;StartCity=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'StartCityID:')],'StartCityID:
+                        '),',')
+                    </part>
+                    <part>&amp;MinPrice=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'minPrice')],'minPrice":'),',')
+                    </part>
+                    <part>&amp;EffectDate=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'effectDate":')],'effectDate":"'),'",')
+                    </part>
+                    <part>&amp;ExpireDate=</part>
+                    <part type="XPath">
+                        substring-before(substring-after(//script[contains(child::text(),'expireDate":')],'expireDate":"'),'"')
+                    </part>
+                    <part>&amp;ClientSource=Online&amp;uid=&amp;TourGroupProductIds=%5B%5D&amp;CurrencyCode=1</part>
+                </plugin>
             </plugin>
         </level>
 
         <level id="110" merge="100" method="post"/>
+        <level id="111" merge="100"/>
     </url_levels>
 </configs>

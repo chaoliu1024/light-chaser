@@ -16,7 +16,7 @@
 
 package group.chaoliu.lightchaser.core.crawl.template;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
@@ -41,9 +41,9 @@ public class WrapperTemplate extends Template {
     @Getter
     private List<Node> wrapperPatternNodes = new ArrayList<>();
 
-    public WrapperTemplate(Job job) {
-        String wrapperPath = templateRootPath + job.getType() + File.separator +
-                job.getName() + File.separator + "wrapper.xml";
+    public WrapperTemplate(Category category) {
+        String wrapperPath = templateRootPath + category.getType() + File.separator +
+                category.getName() + File.separator + "wrapper.xml";
         readWrapperConfig(wrapperPath);
     }
 

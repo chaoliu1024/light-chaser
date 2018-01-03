@@ -16,8 +16,10 @@
 
 package group.chaoliu.lightchaser.core.persistence.hbase;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.Category;
 import group.chaoliu.lightchaser.core.util.MessageDigestUtil;
+import group.chaoliu.lightchaser.hbase.HBaseClient;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Test;
@@ -30,8 +32,8 @@ public class HBaseClientTest {
     public void testGet() {
         System.setProperty("hadoop.home.dir", "d:\\hadoop_home");
         try {
-            Job job = new Job("ota", "ctrip");
-            HBaseClient hBaseClient = new HBaseClient(job);
+            Category category = new Category("ota", "ctrip");
+            HBaseClient hBaseClient = new HBaseClient(category.getType());
             String rowKey = MessageDigestUtil.MD5("http://vacations.ctrip.com/bookingnext/Calendar/CalendarInfo?ProductID=3090323&StartCity=141&SalesCity=141&MinPrice=2650&EffectDate=2017-04-13&ExpireDate=2017-09-07");
             Result result = hBaseClient.get(rowKey, "p", "c");
             String resRow = Bytes.toString(result.getRow());

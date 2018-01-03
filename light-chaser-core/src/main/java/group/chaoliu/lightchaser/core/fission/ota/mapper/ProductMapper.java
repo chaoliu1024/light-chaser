@@ -18,6 +18,7 @@ package group.chaoliu.lightchaser.core.fission.ota.mapper;
 
 
 import group.chaoliu.lightchaser.core.fission.ota.domain.po.OTAProductPO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,7 +28,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductMapper {
 
+    /**
+     * Fetch product by id.
+     *
+     * @param id id
+     * @return product PO
+     */
     OTAProductPO fetchProductByID(int id);
 
-    void insertProduct(OTAProductPO productPO);
+    /**
+     * Insert product to db.
+     *
+     * @param productPO product PO
+     * @param suffix    suffix of table
+     */
+    void insertProduct(@Param("product") OTAProductPO productPO, @Param("suffix") String suffix);
 }

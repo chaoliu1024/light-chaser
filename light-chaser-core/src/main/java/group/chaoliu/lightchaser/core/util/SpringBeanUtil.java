@@ -19,11 +19,13 @@ package group.chaoliu.lightchaser.core.util;
 import group.chaoliu.lightchaser.core.crawl.Crawler;
 import group.chaoliu.lightchaser.core.fission.BaseFission;
 import group.chaoliu.lightchaser.core.fission.common.service.SiteService;
+import group.chaoliu.lightchaser.core.fission.common.service.TableServer;
+import group.chaoliu.lightchaser.core.fission.ota.service.OTATableService;
+import group.chaoliu.lightchaser.core.fission.proxy.ProxyService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringBeanUtil {
-
 
     public static final ApplicationContext CONTEXT = new ClassPathXmlApplicationContext("applicationContext.xml");
 
@@ -56,7 +58,15 @@ public class SpringBeanUtil {
         return CONTEXT.getBean(Crawler.class);
     }
 
+    public static ProxyService proxyServiceBean() {
+        return CONTEXT.getBean(ProxyService.class);
+    }
+
     public static SiteService siteServiceBean() {
         return CONTEXT.getBean(SiteService.class);
+    }
+
+    public static TableServer otaTableServerBean() {
+        return CONTEXT.getBean(OTATableService.class);
     }
 }

@@ -16,6 +16,8 @@
 
 package group.chaoliu.lightchaser.core.protocol.http;
 
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -77,7 +79,7 @@ public class HttpClient extends BasicHttpClient {
 
             response.close();
         } catch (Exception e) {
-            log.error("HTTP GET method error {}.", e.getMessage());
+            log.debug("HTTP GET method error {}.", e.getMessage());
         }
         return rspMsg;
     }
@@ -105,7 +107,7 @@ public class HttpClient extends BasicHttpClient {
 
                 response.close();
             } catch (IOException e) {
-                log.error("HTTP POST method error {}.", e.getMessage());
+                log.debug("HTTP POST method error {}.", e.getMessage());
             }
         }
         return rspMsg;

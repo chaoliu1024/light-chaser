@@ -48,7 +48,8 @@ public class ThisURL implements Parse, Extract {
 
         log.debug("level: {}", pluginEle.attributeValue("level"));
 
-        CrawlerMessage reqMsg = ParseAction.generateRequestMessage(crawlerMsg, crawlerMsg.getRequestMsg().getURL());
+        CrawlerMessage reqMsg = ParseAction.generateRequestMessage(crawlerMsg,
+                crawlerMsg.getQueueMessage().getRequestMsg().getURL());
         reqMsgs.add(reqMsg);
         return reqMsgs;
     }

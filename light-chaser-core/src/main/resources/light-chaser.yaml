@@ -1,12 +1,12 @@
-lightchaser.template.path: "/home/chaoliu/workspace/space-time/time/light-chaser/template"
+lightchaser.template.path: "D:\\space-time\\light-chaser\\template"
 
 lightchaser.proxy.file: "proxy.yaml"
-lightchaser.proxy.used: false
+lightchaser.proxy.used: true
 
-lightchaser.store.webpage: true
+lightchaser.store.webpage: false
 
-lightchaser.store.mysql: false
+lightchaser.store.mysql: true
 
 lightchaser.cluster.mode: false
 
-lightchaser.image.basepath: "/home/chaoliu/"
+lightchaser.image.basepath: "D:\\"

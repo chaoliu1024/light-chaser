@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+package protobuf;
+
+option java_package = "group.chaoliu.lightchaser.rpc.netty.protobuf";
+option java_outer_classname = "QueueMsgProto";
+
+message QueueMsg {
+    required int32 URLLevel = 1;
+    required Category category = 2;
+    required RequestMessage requestMessage = 3;
+}
+
+message Category {
+    required string type = 1;
+    required string name = 2;
+}
+
+message RequestMessage {
+    required string URL = 1;
+    optional bool isPostRequest = 2;
+    repeated string headers = 3;
+    repeated string cookie = 4;
+}

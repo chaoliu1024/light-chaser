@@ -16,6 +16,7 @@
 
 package group.chaoliu.lightchaser.core.parser.template.plugins;
 
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.parser.template.Parse;
 import group.chaoliu.lightchaser.core.parser.template.ParseAction;
@@ -46,14 +47,16 @@ public class Replace implements Parse, Extract {
     @Override
     public List<CrawlerMessage> parse(CrawlerMessage crawlerMsg, Element pluginEle) {
 
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+
         List<CrawlerMessage> reqMsgs = new ArrayList<>();
 
         Node regexNode = pluginEle.selectSingleNode("./regex");
         Node resultNode = pluginEle.selectSingleNode("./result");
-        log.debug("\tthis URL : {}", crawlerMsg.getRequestMsg().getURL());
+        log.debug("\tthis URL : {}", queueMsg.getRequestMsg().getURL());
         log.debug("\tlevel    : {}", pluginEle.attributeValue("level"));
 
-        String result = matchReplace(regexNode, resultNode, crawlerMsg.getRequestMsg().getURL());
+        String result = matchReplace(regexNode, resultNode, queueMsg.getRequestMsg().getURL());
 
         log.debug("\t\tnew URL: {}", result);
         CrawlerMessage reqMsg = ParseAction.generateRequestMessage(crawlerMsg, result);
@@ -91,7 +94,9 @@ public class Replace implements Parse, Extract {
                 log.debug("\tmatcher.group(" + i + "): {}", matcher.group(i));
                 resultExp = resultExp.replace("\\" + i, matcher.group(i));
             }
+            return resultExp;
+        } else {
+            return "";
         }
-        return resultExp;
     }
 }

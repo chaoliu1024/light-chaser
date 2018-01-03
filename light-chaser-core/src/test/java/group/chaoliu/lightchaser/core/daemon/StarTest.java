@@ -17,7 +17,8 @@
 
 package group.chaoliu.lightchaser.core.daemon;
 
-import group.chaoliu.lightchaser.core.config.LoadConfig;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.config.YamlConfig;
 import group.chaoliu.lightchaser.core.daemon.star.Star;
 import org.junit.Test;
 
@@ -112,7 +113,7 @@ public class StarTest {
     @Test
     public void startAllProxy() {
         String jobType = "proxy";
-        Map config = LoadConfig.readLightChaserConfig();
+        Map config = YamlConfig.readLightChaserConfig();
         Star star = new Star();
 //        Star.initTemplateRootPath(config);
 //        Star.initProxyWeb(config);
@@ -125,19 +126,19 @@ public class StarTest {
 
     private void testCommonTypeStar(String jobName) {
         String jobType = "ota";
-        Job job = new Job(jobType, jobName);
-        start(job, jobName);
+        Category category = new Category(jobType, jobName);
+        start(category, jobName);
     }
 
     private void testProxyStar(String jobName) {
         String jobType = "proxy";
-        Job job = new Job(jobType, jobName);
-        start(job, jobName);
+        Category category = new Category(jobType, jobName);
+        start(category, jobName);
     }
 
-    private void start(Job job, String jobName) {
+    private void start(Category category, String jobName) {
         Star star = new Star();
-        Map config = LoadConfig.readLightChaserConfig();
+        Map config = YamlConfig.readLightChaserConfig();
 //        Star.initTemplateRootPath(config);
 //        Star.initProxyWeb(config);
 //        star.init(job, config);
@@ -145,7 +146,7 @@ public class StarTest {
 
     @Test
     public void testInitProxyWeb() {
-        Map config = LoadConfig.readLightChaserConfig();
+        Map config = YamlConfig.readLightChaserConfig();
 //        Star.initProxyWeb(config);
     }
 }

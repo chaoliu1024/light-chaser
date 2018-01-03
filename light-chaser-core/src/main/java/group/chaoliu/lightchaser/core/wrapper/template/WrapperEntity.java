@@ -37,20 +37,28 @@ public class WrapperEntity {
 
     private String url;
 
-    // text content
+    /**
+     * text content
+     */
     private String text;
 
-    // htmlDom
+    /**
+     * htmlDom
+     */
     private HtmlDom htmlDom;
 
-    // json content
+    /**
+     * json content
+     */
     private JSON json;
 
-    // extract information
+    /**
+     * extract information
+     */
     private Map result = new HashMap();
 
     public WrapperEntity(CrawlerMessage crawlerMsg) {
-        this.url = crawlerMsg.getRequestMsg().getURL();
+        this.url = crawlerMsg.getQueueMessage().getRequestMsg().getURL();
         this.text = crawlerMsg.getResponseMsg().getBody();
 
         if (null != crawlerMsg.getHtmlDom()) {
@@ -71,4 +79,5 @@ public class WrapperEntity {
         this.text = text;
         this.json = json;
     }
+
 }

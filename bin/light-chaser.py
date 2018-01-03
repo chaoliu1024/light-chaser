@@ -22,10 +22,13 @@ import os
 import sys
 
 LIGHT_CHASER_HOME = os.getenv("LIGHT_CHASER_HOME")
+if LIGHT_CHASER_HOME is None:
+    print("Please set light-chaser home!")
+    sys.exit(-1)
+
 LIGHT_CHASER_CONF = os.path.join(LIGHT_CHASER_HOME, "conf")
 
-
-def check_java():
+def check_env():
     check_java_cmd = "java -version"
     ret = os.system(check_java_cmd)
     if ret != 0:
@@ -91,5 +94,5 @@ def run():
 COMMANDS = {"local_daemon": local_daemon, "photon": photon}
 
 if __name__ == '__main__':
-    check_java()
+    check_env()
     run()

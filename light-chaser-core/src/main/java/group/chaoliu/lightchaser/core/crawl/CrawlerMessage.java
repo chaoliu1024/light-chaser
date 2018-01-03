@@ -16,9 +16,8 @@
 
 package group.chaoliu.lightchaser.core.crawl;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
-import group.chaoliu.lightchaser.core.protocol.http.RequestMessage;
-import group.chaoliu.lightchaser.core.protocol.http.ResponseMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -36,26 +35,27 @@ import java.util.Date;
 @Getter
 public class CrawlerMessage implements Cloneable {
 
-    private int URLLevel;
-
     private Date crawlTime;
 
-    private Job job;
-
-    // html page
+    /**
+     * html page
+     */
     private HtmlDom htmlDom;
 
-    // json page
+    /**
+     * json page
+     */
     private Object json;
 
-    // request message
-    private RequestMessage requestMsg;
-
-    // response message
+    /**
+     * response message
+     */
     private ResponseMessage responseMsg;
 
+    private QueueMessage queueMessage;
+
     public CrawlerMessage() {
-        this.requestMsg = new RequestMessage();
+        this.queueMessage = new QueueMessage();
         this.responseMsg = new ResponseMessage();
     }
 
@@ -74,5 +74,11 @@ public class CrawlerMessage implements Cloneable {
             log.error("crawl message clone error {}", e);
         }
         return crawlerMsg;
+    }
+
+    @Override
+    public String toString() {
+        return "CrawlerMessage{crawlTime=" + crawlTime +
+                ", responseMsg=" + responseMsg + ", queueMessage=" + queueMessage + '}';
     }
 }

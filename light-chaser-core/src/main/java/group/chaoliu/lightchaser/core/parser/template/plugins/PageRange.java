@@ -16,6 +16,7 @@
 
 package group.chaoliu.lightchaser.core.parser.template.plugins;
 
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.parser.template.Parse;
 import group.chaoliu.lightchaser.core.parser.template.ParseAction;
@@ -45,10 +46,10 @@ public class PageRange implements Parse {
 
     @Override
     public List<CrawlerMessage> parse(CrawlerMessage crawlerMsg, Element pluginEle) {
+
         List<CrawlerMessage> reqMsgs = new ArrayList<>();
 
-        String URL = crawlerMsg.getRequestMsg().getURL();
-        log.debug("\tthis URL : {}", URL);
+        log.debug("\tthis URL : {}", crawlerMsg.getQueueMessage().getRequestMsg().getURL());
         log.debug("\tlevel    : {}", pluginEle.attributeValue("level"));
 
         Node xpathNode = pluginEle.selectSingleNode("./xpath");
@@ -72,13 +73,14 @@ public class PageRange implements Parse {
 
         String totalPage = totalPageNode.getStringValue().trim();
         log.debug("\ttotalPage: {}", totalPage);
-        reqMsg = rangeURLs(crawlerMsg, crawlerMsg.getRequestMsg().getURL(), Integer.parseInt(totalPage));
+        reqMsg = rangeURLs(crawlerMsg, crawlerMsg.getQueueMessage().getRequestMsg().getURL(), Integer.parseInt(totalPage));
 
         return reqMsg;
     }
 
     private List<CrawlerMessage> rangeByXpath(CrawlerMessage crawlerMsg, Node xpathNode, Node regexNode, Node resultNode) {
 
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
         List<CrawlerMessage> reqMsg = new ArrayList<>();
 
         String xpathValue = xpathNode.getStringValue().trim();
@@ -96,11 +98,11 @@ public class PageRange implements Parse {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 org.w3c.dom.Node node = nodeList.item(i);
                 int totalPage = totalPage(node.getTextContent(), regex, resultExp);
-                reqMsg = rangeURLs(crawlerMsg, crawlerMsg.getRequestMsg().getURL(), totalPage);
+                reqMsg = rangeURLs(crawlerMsg, queueMsg.getRequestMsg().getURL(), totalPage);
             }
         } else if (result instanceof String) {
             int totalPage = totalPage(result.toString().trim(), regex, resultExp);
-            reqMsg = rangeURLs(crawlerMsg, crawlerMsg.getRequestMsg().getURL(), totalPage);
+            reqMsg = rangeURLs(crawlerMsg, queueMsg.getRequestMsg().getURL(), totalPage);
         }
         return reqMsg;
     }
@@ -119,13 +121,14 @@ public class PageRange implements Parse {
         return Integer.parseInt(resultExp);
     }
 
-    private List<CrawlerMessage> rangeURLs(CrawlerMessage crawlerMsg, String URL, int totalPage) {
+    private List<CrawlerMessage> rangeURLs(CrawlerMessage crawlerMsg, String url, int totalPage) {
         List<CrawlerMessage> crawlerMsgs = new ArrayList<>();
         for (int i = 1; i <= totalPage; i++) {
-            String newURL = URL + i;
+            String newURL = url + i;
             CrawlerMessage crawlerMessage = ParseAction.generateRequestMessage(crawlerMsg, newURL);
             crawlerMsgs.add(crawlerMessage);
         }
         return crawlerMsgs;
     }
+
 }

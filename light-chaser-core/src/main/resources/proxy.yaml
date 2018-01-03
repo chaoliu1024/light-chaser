@@ -10,3 +10,10 @@ lightchaser.proxy.verifier.web:
 
 lightchaser.proxy.sites:
   - enable:
+
+lightchaser.proxy.socket.server.host: "192.168.1.102"
+lightchaser.proxy.socket.server.port: 30900
+
+lightchaser.proxy.crawl.interval.hour: 3
+lightchaser.proxy.verify.interval.hour: 1
+lightchaser.proxy.verify.failed.count: 3

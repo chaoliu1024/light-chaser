@@ -16,9 +16,9 @@
 
 package group.chaoliu.lightchaser.core.crawl.template;
 
-import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
-import group.chaoliu.lightchaser.core.daemon.Job;
-import group.chaoliu.lightchaser.core.protocol.http.CommonHeaders;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.protocol.http.CommonHeaders;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
@@ -39,16 +39,16 @@ import java.util.*;
 @Slf4j
 public class SeedMsgTemplate extends Template {
 
-    private List<CrawlerMessage> messages;
+    private List<QueueMessage> messages;
 
     public SeedMsgTemplate() {
         messages = new ArrayList<>();
     }
 
-    public List<CrawlerMessage> initSeedMsgs(Job job) {
+    public List<QueueMessage> initSeedMsgs(Category category) {
 
-        String seedURLPath = templateRootPath + job.getType() + File.separator +
-                job.getName() + File.separator + "seed_url.xml";
+        String seedURLPath = templateRootPath + category.getType() + File.separator +
+                category.getName() + File.separator + "seed_url.xml";
 
         File seedFile = new File(seedURLPath);
 
@@ -56,7 +56,7 @@ public class SeedMsgTemplate extends Template {
         try {
             Document document = reader.read(seedFile);
             Element root = document.getRootElement();
-            listNodes(root, job);
+            listNodes(root, category);
         } catch (DocumentException e) {
             log.error("parse seed url config error. error info: {}", e);
         }
@@ -69,17 +69,17 @@ public class SeedMsgTemplate extends Template {
      * @param node current node
      */
     @SuppressWarnings("unchecked")
-    private void listNodes(Element node, Job job) {
+    private void listNodes(Element node, Category category) {
         if ("entity".equals(node.getName())) {
             List<Node> entities = node.elements();
-            CrawlerMessage crawlerMsg = new CrawlerMessage();
-            crawlerMsg.setJob(job);
+            QueueMessage queueMsg = new QueueMessage();
+            queueMsg.setCategory(category);
             for (Node entityNode : entities) {
                 if ("url".equals(entityNode.getName())) {
-                    crawlerMsg.getRequestMsg().setURL(entityNode.getText().trim());
+                    queueMsg.getRequestMsg().setURL(entityNode.getText().trim());
                 }
                 if ("level".equals(entityNode.getName())) {
-                    crawlerMsg.setURLLevel(Integer.parseInt(entityNode.getText().trim()));
+                    queueMsg.setUrlLevel(Integer.parseInt(entityNode.getText().trim()));
                 }
                 if ("cookies".equals(entityNode.getName())) {
 
@@ -91,31 +91,31 @@ public class SeedMsgTemplate extends Template {
                         String cookieValue = cookie.split("=")[1];
                         _cookies.put(cookieName, cookieValue);
                     }
-                    crawlerMsg.getRequestMsg().setCookie(_cookies);
+                    queueMsg.getRequestMsg().setCookie(_cookies);
                 }
             }
-            if (StringUtils.isNotBlank(crawlerMsg.getRequestMsg().getURL())
-                    && StringUtils.isNotBlank(String.valueOf(crawlerMsg.getURLLevel()))
-                    && StringUtils.isNotBlank(job.getName())) {
-                CrawlTemplate crawlConfig = new CrawlTemplate(job);
+            if (StringUtils.isNotBlank(queueMsg.getRequestMsg().getURL())
+                    && StringUtils.isNotBlank(String.valueOf(queueMsg.getUrlLevel()))
+                    && StringUtils.isNotBlank(category.getName())) {
+                CrawlTemplate crawlConfig = new CrawlTemplate(category);
                 // set request headers
                 Map<String, String> headers = crawlConfig.getHeaders();
                 if (!headers.isEmpty()) {
                     log.info("Using crawl_path.xml headers.");
-                    crawlerMsg.getRequestMsg().setHeaders(headers);
+                    queueMsg.getRequestMsg().setHeaders(headers);
                 } else {
                     log.info("Tag headers in crawl_path.xml file is null. Using common default headers.");
                     CommonHeaders defaultHeaders = new CommonHeaders();
-                    crawlerMsg.getRequestMsg().setHeaders(defaultHeaders.getHeaders());
+                    queueMsg.getRequestMsg().setHeaders(defaultHeaders.getHeaders());
                 }
-                messages.add(crawlerMsg);
+                messages.add(queueMsg);
             }
         }
         // 递归当前节点所有子节点
         Iterator<Element> iterator = node.elementIterator();
         while (iterator.hasNext()) {
             Element e = iterator.next();
-            listNodes(e, job);
+            listNodes(e, category);
         }
     }
 }

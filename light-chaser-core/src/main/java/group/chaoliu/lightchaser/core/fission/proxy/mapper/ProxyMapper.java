@@ -16,8 +16,8 @@
 
 package group.chaoliu.lightchaser.core.fission.proxy.mapper;
 
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
 import group.chaoliu.lightchaser.core.fission.proxy.domain.ProxyPO;
-import group.chaoliu.lightchaser.core.protocol.http.Proxy;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -37,11 +37,17 @@ public interface ProxyMapper {
     void insertBatchProxies(@Param("proxies") List<ProxyPO> proxies);
 
     /**
-     * 获得通用代理
+     * Fetch proxies
      *
-     * @return common usable proxies
+     * @param proxy proxyPO
+     * @return proxyPO list
      */
-    List<Proxy> fetchCommonUsableProxies();
+    List<Proxy> fetchProxies(ProxyPO proxy);
 
-    List<Proxy> fetchAllProxies();
+    /**
+     * Delete ineffective proxies.
+     *
+     * @param failedCount failed count
+     */
+    void deleteIneffectiveProxies(int failedCount);
 }

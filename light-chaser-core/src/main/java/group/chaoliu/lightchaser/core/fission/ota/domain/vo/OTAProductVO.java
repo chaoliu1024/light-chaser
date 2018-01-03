@@ -48,6 +48,11 @@ public class OTAProductVO {
     private String departureCity;
 
     /**
+     * 目的地
+     */
+    private String destination;
+
+    /**
      * 产品起价
      */
     private BigDecimal price;

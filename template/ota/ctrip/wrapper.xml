@@ -12,7 +12,7 @@
         </node>
 
         <!-- 产品名称 -->
-        <node name="productName" nullable="0" xpath="//div[contains(@class,'detail_main_title')]/h2/text()"/>
+        <node name="productName" nullable="0" xpath="//div[contains(@class,'detail_main_title')]/h2/text()|//div[contains(@class,'product_scroll_wrap')]/h1/text()"/>
 
         <node name="url" nullable="0">
             <plugin class="ThisURL"/>
@@ -26,13 +26,13 @@
             </plugin>
         </node>
 
-        <node name="price" nullable="0" xpath="//div[contains(@class,'price_suggest')]/text()"/>
+        <node name="destination" nullable="0" xpath="substring-before(substring-after(//script[contains(child::text(), &quot;DestinationCityName&quot;)],'&quot;DestinationCityName&quot;:&quot;'),'&quot;')"/>
 
     </wrapper>
 
     <!-- date price page, url likes: http://taocan.ctrip.com/freetravel/Calendar/Calendar?ProductId=1017289044&SalesCityId=12&StartCityId=12&EffectTime=2017-5-25 0:00:00&ExpireTime=2017-8-31 0:00:00&IsSupperOrder=false&StartDate= -->
     <wrapper levelId="110" type="json">
-        <node name="productId" allownull="0">
+        <node name="productId" nullable="0">
             <plugin class="ThisURL">
                 <plugin class="Replace">
                     <regex>.*ProductId\=(\d+)&amp;SalesCityId\=(\d+).*</regex>
@@ -41,6 +41,23 @@
             </plugin>
         </node>
         <node name="calendarPrice" nullable="0" key="data.AvailableDates">
+            <node name="price" nullable="0" key="MinPrice"/>
+            <node name="date" nullable="0" key="Date"/>
+        </node>
+    </wrapper>
+
+    <!-- date price page, url likes: http://vacations.ctrip.com/bookingnext/CalendarV2/CalendarInfo?ProductID=18208217&SalesCity=12&StartCity=12&MinPrice=2339&EffectDate=2017-09-21&ExpireDate=2017-11-04&ClientSource=Online&uid=&TourGroupProductIds=%5B%5D&startDate=2017-10-1&endDate=2017-11-11&CurrencyCode=1 -->
+    <wrapper levelId="111" type="json">
+        <node name="productId" nullable="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*ProductID\=(\d+)&amp;SalesCity\=(\d+).*</regex>
+                    <result>\1s\2</result>
+                </plugin>
+            </plugin>
+        </node>
+        <node name="price" nullable="0" key="productMinPrice"/>
+        <node name="calendarPrice" nullable="0" key="calendar.bigCalendar.availableDate">
             <node name="price" nullable="0" key="MinPrice"/>
             <node name="date" nullable="0" key="Date"/>
         </node>

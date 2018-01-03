@@ -35,7 +35,7 @@ public class MyBatisUtil {
 
     private static SqlSessionFactory sqlSessionFactory = null;
 
-    private static final String resource = "mybatis-config.xml";
+    private static final String RESOURCE = "mybatis-config.xml";
 
     private MyBatisUtil() {
     }
@@ -49,7 +49,7 @@ public class MyBatisUtil {
         if (null == sqlSessionFactory) {
             synchronized (MyBatisUtil.class) {
                 if (null == sqlSessionFactory) {
-                    return getSqlSessionFactory();
+                    return buildSqlSessionFactory();
                 } else {
                     return sqlSessionFactory;
                 }
@@ -59,11 +59,11 @@ public class MyBatisUtil {
         }
     }
 
-    private static SqlSessionFactory getSqlSessionFactory() {
+    private static SqlSessionFactory buildSqlSessionFactory() {
 
         SqlSessionFactory sessionFactory = null;
         try {
-            sessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(resource));
+            sessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(RESOURCE));
         } catch (IOException e) {
             log.error("init mybatis SqlSessionFactory Exception {}", e);
         }

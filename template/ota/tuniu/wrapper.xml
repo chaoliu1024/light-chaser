@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wrappers>
+    <!-- detail page, url likes: http://www.tuniu.com/tours/210169523 -->
+    <wrapper levelId="100" type="html">
+        <node name="productId" nullable="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*tours/(\d+)</regex>
+                    <result>\1</result>
+                </plugin>
+            </plugin>
+        </node>
+
+        <!-- 产品名称 -->
+        <node name="productName" nullable="0" xpath="//div[contains(@class,'product_name_bar')]/h1/text()"/>
+
+        <node name="url" nullable="0">
+            <plugin class="ThisURL"/>
+        </node>
+
+        <!-- 出发地 -->
+        <node name="departureCity" nullable="0" xpath="//div[contains(@class,'select_con')]/p[contains(@class,'select_result')]/text()" />
+
+        <node name="price" nullable="0" xpath="//p[contains(@class,'promotion')]/span[@class='price']/text()"/>
+
+    </wrapper>
+
+    <!-- date price page, url likes: http://www.tuniu.com/tn?r=detail/tourV3Ajax/calendar&id=210447956&backCityCode=3000&departCityCode=3000&refreshFileCache=0&type=json&bookCityCode=3000 -->
+    <wrapper levelId="110" type="json">
+        <node name="productId" allownull="0">
+            <plugin class="ThisURL">
+                <plugin class="Replace">
+                    <regex>.*id=(\d+)&amp;.*</regex>
+                    <result>\1</result>
+                </plugin>
+            </plugin>
+        </node>
+        <node name="calendarPrice" nullable="0" key="routePlan">
+            <node name="price" nullable="0" key="tuniuPrice"/>
+            <node name="date" nullable="0" key="departDate"/>
+        </node>
+    </wrapper>
+</wrappers>

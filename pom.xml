@@ -11,14 +11,28 @@
     <modules>
         <module>light-chaser-core</module>
         <module>light-chaser-web</module>
-        <module>light-chaser-wps</module>
+        <module>light-chaser-hbase</module>
+        <module>light-chaser-rpc</module>
+        <module>light-chaser-common</module>
+        <module>light-chaser-mq</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <springframework.version>4.3.6.RELEASE</springframework.version>
         <lombok.version>1.16.10</lombok.version>
         <slf4j.version>1.7.24</slf4j.version>
+        <servlet.version>4.0.0-b01</servlet.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-io.version>2.5</commons-io.version>
+        <redis.version>2.9.0</redis.version>
+
+        <mybatis.version>3.4.1</mybatis.version>
+        <mybatis-spring.version>1.3.1</mybatis-spring.version>
+        <mysql-connector-java.version>5.1.39</mysql-connector-java.version>
+
+        <lightchaser.version>0.0.1-SNAPSHOT</lightchaser.version>
     </properties>
 
     <dependencies>
@@ -48,12 +62,12 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${commons-lang.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>
@@ -76,10 +90,27 @@
             <artifactId>spring-test</artifactId>
             <version>${springframework.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.0-b01</version>
+            <version>${servlet.version}</version>
         </dependency>
 
     </dependencies>
@@ -113,6 +144,11 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
+                <!--<excludes>-->
+                    <!--<exclude>**/light-chaser.yaml</exclude>-->
+                    <!--<exclude>**/proxy.yaml</exclude>-->
+                    <!--<exclude>**/log4j.properties</exclude>-->
+                <!--</excludes>-->
             </resource>
             <resource>
                 <directory>src/main/resources-${profile.name}</directory>
@@ -123,9 +159,9 @@
     <profiles>
         <profile>
             <id>dev</id>
-            <activation> <!-- 这里表示默认环境 -->
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <!--<activation> &lt;!&ndash; 这里表示默认环境 &ndash;&gt;-->
+            <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
             <properties>
                 <profile.name>dev</profile.name>
                 <maven.test.skip>true</maven.test.skip>
@@ -133,13 +169,13 @@
         </profile>
         <profile>
             <id>test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <profile.name>test</profile.name>
-                <!--<maven.test.skip>true</maven.test.skip>-->
+                <maven.test.skip>true</maven.test.skip>
             </properties>
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
         </profile>
         <profile>
             <id>pro</id>

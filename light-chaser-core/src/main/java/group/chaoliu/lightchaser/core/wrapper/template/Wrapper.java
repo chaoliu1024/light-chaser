@@ -39,9 +39,13 @@ public abstract class Wrapper {
 
     public static final String LEVEL_ID = "levelId";
 
-    public static final String JOB_TYPE_KEY = "job";
+    public static final String CATEGORY_TYPE_KEY = "category";
+
+    public static final String CATEGORY_SUFFIX = "suffix";
 
     public static final String CRAWL_TIME = "crawlTime";
+
+    public static final String DOMAIN_KEY = "domainKey";
 
     public static final String WRAPPRE_TYPE = "type";
 
@@ -49,17 +53,23 @@ public abstract class Wrapper {
 
     public static final String NODE_NAME = "name";
 
+    public static final String NODE_NULLABLE = "nullable";
+
     public static final String NODE_KEY = "key";
 
     public static final String NODE_XPATH = "xpath";
 
     public static final String PLUGIN_CLASS = "class";
 
+    public static final String NULL_TAG = "1";
+    public static final String NOT_NULL_TAG = "0";
+    public static final String NULL_ERROR = "NullError";
 
-    protected Node wrapperNode;
 
-    public Wrapper(Node node) {
-        this.wrapperNode = node;
+    protected Element wrapperEle;
+
+    public Wrapper(Element ele) {
+        this.wrapperEle = ele;
     }
 
     public abstract Map extract(WrapperEntity wrapperEntity);
@@ -67,15 +77,13 @@ public abstract class Wrapper {
     /**
      * extract fields
      *
-     * @param entity   wrapper entity
-     * @param wrapNode wrapper node
+     * @param entity  wrapper entity
+     * @param wrapEle wrapper element
      * @return
      */
-    public List<WrapperEntity> extractFields(WrapperEntity entity, Node wrapNode) {
+    public List<WrapperEntity> extractFields(WrapperEntity entity, Element wrapEle) {
 
         List<WrapperEntity> results = new ArrayList<>();
-
-        Element wrapEle = (Element) wrapNode;
 
         @SuppressWarnings("unchecked")
         List<Node> pluginNodes = wrapEle.selectNodes("./plugin");
@@ -159,7 +167,7 @@ public abstract class Wrapper {
         return wrapEntities;
     }
 
-    protected Map mergeFields(Map fields, Map field, Element wrapEle) {
+    protected static Map mergeFields(Map fields, Map field, Element wrapEle) {
 
         String key;
         if (Dom4jUtil.isAttributeBlank(wrapEle, NODE_NAME)) {
@@ -177,12 +185,17 @@ public abstract class Wrapper {
         } else if (fields.get(key) instanceof List) {
             List tmpList = (List) fields.get(key);
 
-            if (tmpList.size() == 0) { // empty list
-                tmpList.add(field);    // direct add
+            // empty list
+            if (tmpList.size() == 0) {
+                // direct add
+                tmpList.add(field);
             } else {
-                int lastIndex = tmpList.size() - 1;  // index of last element
-                if (null == tmpList.get(lastIndex)) { // last element is null
-                    tmpList.add(field); // direct add
+                // index of last element
+                int lastIndex = tmpList.size() - 1;
+                // last element is null
+                if (null == tmpList.get(lastIndex)) {
+                    // direct add
+                    tmpList.add(field);
                 } else {
                     if (((Map) tmpList.get(lastIndex)).size() == 0) {
                         tmpList.set(lastIndex, field);
@@ -204,8 +217,10 @@ public abstract class Wrapper {
 
                 String fieldKey = keyIte.next();
 
-                if (((Map) fields.get(key)).containsKey(fieldKey)) { // 首次一个key有多个值，需要转成list
-                    Iterator ite = ((Map) fields.get(key)).entrySet().iterator(); // 重新赋值field
+                // 首次一个key有多个值，需要转成list
+                if (((Map) fields.get(key)).containsKey(fieldKey)) {
+                    // 重新赋值field
+                    Iterator ite = ((Map) fields.get(key)).entrySet().iterator();
                     while (ite.hasNext()) {
                         Map.Entry entry = (Map.Entry) ite.next();
                         field.put(entry.getKey(), entry.getValue());
@@ -216,7 +231,8 @@ public abstract class Wrapper {
 
                     }
                 } else {
-                    Iterator ite = ((Map) fields.get(key)).entrySet().iterator();  // 重新赋值field
+                    // 重新赋值field
+                    Iterator ite = ((Map) fields.get(key)).entrySet().iterator();
                     while (ite.hasNext()) {
                         Map.Entry entry = (Map.Entry) ite.next();
                         field.put(entry.getKey(), entry.getValue());
@@ -234,7 +250,7 @@ public abstract class Wrapper {
      * @param ele element
      * @return HashMap object if the node has attribute 'name', else null
      */
-    protected Map newField(Element ele, boolean isArray) {
+    protected static Map newField(Element ele, boolean isArray) {
 
         if (Dom4jUtil.isAttributeNotBlank(ele, NODE_NAME)) {
             String key = ele.attributeValue(NODE_NAME).trim();
@@ -252,4 +268,5 @@ public abstract class Wrapper {
             return null;
         }
     }
+
 }

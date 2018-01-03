@@ -16,6 +16,7 @@
 
 package group.chaoliu.lightchaser.core.protocol.http;
 
+import group.chaoliu.lightchaser.common.protocol.http.CommonHeaders;
 import org.junit.Test;
 
 import java.util.HashMap;

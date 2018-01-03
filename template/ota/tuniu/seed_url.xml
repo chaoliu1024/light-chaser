@@ -1,0 +1,16 @@
+<url-entities>
+    <entity>
+        <url site="tuniu">http://s.tuniu.com/search_complex/pkg-nj-0-%E5%8C%97%E4%BA%AC/1/</url>
+        <level>50</level>
+    </entity>
+
+    <!--<entity>-->
+        <!--<url site="tuniu">http://www.tuniu.com/tn?r=detail/tourV3Ajax/calendar&amp;id=210447956&amp;backCityCode=3000&amp;departCityCode=3000&amp;refreshFileCache=0&amp;type=json&amp;bookCityCode=3000</url>-->
+        <!--<level>110</level>-->
+    <!--</entity>-->
+
+    <!--<entity>-->
+        <!--<url site="tuniu">http://www.tuniu.com/tours/210169523</url>-->
+        <!--<level>100</level>-->
+    <!--</entity>-->
+</url-entities>

@@ -66,6 +66,11 @@ public class OTAProductPO {
     private String departureCity;
 
     /**
+     * 目的地
+     */
+    private String destination;
+
+    /**
      * 产品起价
      */
     private BigDecimal price;

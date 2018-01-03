@@ -16,19 +16,18 @@
 
 package group.chaoliu.lightchaser.core.fission.proxy;
 
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
 import group.chaoliu.lightchaser.core.fission.proxy.domain.ProxyPO;
 import group.chaoliu.lightchaser.core.parser.util.HtmlXPath;
 import group.chaoliu.lightchaser.core.protocol.http.BasicHttpClient;
 import group.chaoliu.lightchaser.core.protocol.http.HttpClient;
-import group.chaoliu.lightchaser.core.protocol.http.Proxy;
-import group.chaoliu.lightchaser.core.protocol.http.ResponseMessage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.NodeList;
 
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -44,8 +43,10 @@ public class ProxyValidator implements Callable<ProxyPO> {
 
     private Proxy proxy;
 
-    // 有序Map
-    public static final Map<String, ProxyWeb> webProxy = new LinkedHashMap<>();
+    /**
+     * 有序Map
+     */
+    public static final Map<String, ProxyWeb> WEB_PROXY = new LinkedHashMap<>();
 
     public static final String WEB_PROXY_URL = "url";
     public static final String WEB_PROXY_XPATH = "xpath";
@@ -58,13 +59,16 @@ public class ProxyValidator implements Callable<ProxyPO> {
     @Override
     public ProxyPO call() throws Exception {
         ValidatorResult res = null;
+
+        ProxyPO proxyPO = new ProxyPO();
         try {
             res = isEffectiveProxy(proxy);
         } catch (Exception e) {
             log.error("validate proxy fail {}.", proxy);
+            return proxyPO;
         }
-        if (null != res) {
-            ProxyPO proxyPO = new ProxyPO();
+
+        try {
             proxyPO.setHost(proxy.getHost());
             proxyPO.setPort(proxy.getPort());
             if (StringUtils.isBlank(proxy.getProxyType())) {
@@ -75,14 +79,29 @@ public class ProxyValidator implements Callable<ProxyPO> {
             proxyPO.setUserName(proxy.getUserName());
             proxyPO.setPassword(proxy.getPassword());
             proxyPO.setInternet(true);
-            proxyPO.setCostTime(res.getCostTime());
-            proxyPO.setLevel(res.proxyLevel);
-            proxyPO.setFailedNum(0);
-            proxyPO.setUpdateTime(new Date());
-            return proxyPO;
-        } else {
+            proxyPO.setDomainKey(proxy.getDomainKey());
+            proxyPO.setCrawlTime(proxy.getCrawlTime());
+            proxyPO.setUpdateTime(proxy.getCrawlTime());
+
+            if (null != res) {
+                proxyPO.setCostTime(res.getCostTime());
+                proxyPO.setLevel(res.proxyLevel);
+                proxyPO.setFailedCount(0);
+            } else {
+                if (null != proxy.getFailedCount()) {
+                    // 更新验证代理
+                    proxyPO.setCostTime(0);
+                    proxyPO.setLevel(0);
+                    proxyPO.setFailedCount(proxy.getFailedCount() + 1);
+                } else {
+                    // 抓取的新代理
+                    return new ProxyPO();
+                }
+            }
+        } catch (Exception e) {
             return new ProxyPO();
         }
+        return proxyPO;
     }
 
     /**
@@ -99,7 +118,7 @@ public class ProxyValidator implements Callable<ProxyPO> {
 
         ValidatorResult res = new ValidatorResult();
 
-        for (Map.Entry<String, ProxyWeb> web : webProxy.entrySet()) {
+        for (Map.Entry<String, ProxyWeb> web : WEB_PROXY.entrySet()) {
             ProxyWeb proxyWeb = web.getValue();
             log.info("use " + web.getKey() + " to validate");
             String url = proxyWeb.getWebURL();
@@ -107,7 +126,7 @@ public class ProxyValidator implements Callable<ProxyPO> {
             String value = proxyWeb.getXpathValue();
 
             HttpClient httpClient = BasicHttpClient.buildProxyHttpClient(proxy);
-            log.debug("validate proxy: host={}, port={}, by url {}.", proxy.getHost(), proxy.getPort(), url);
+            log.debug("validate proxy: host={}, port={}, by url {}", proxy.getHost(), proxy.getPort(), url);
             float startTime = System.nanoTime();
             ResponseMessage responseMsg = httpClient.GET(url);
             float endTime = System.nanoTime();
@@ -121,7 +140,10 @@ public class ProxyValidator implements Callable<ProxyPO> {
                 }
             }
             float costTime = (endTime - startTime) / 1000000000.0f;
-            res.setCostTime(costTime);
+            // 保留时间最久的costTime
+            if (res.getCostTime() < costTime) {
+                res.setCostTime(costTime);
+            }
             res.setProxyLevel(++proxyLevel);
             httpClient.close();
         }
@@ -175,4 +197,5 @@ public class ProxyValidator implements Callable<ProxyPO> {
         float costTime = 0f;
         int proxyLevel = 0;
     }
+    
 }

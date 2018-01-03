@@ -16,10 +16,11 @@
 
 package group.chaoliu.lightchaser.core.persistence;
 
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
-import group.chaoliu.lightchaser.core.daemon.Job;
-import group.chaoliu.lightchaser.core.persistence.hbase.HBaseClient;
 import group.chaoliu.lightchaser.core.util.MessageDigestUtil;
+import group.chaoliu.lightchaser.hbase.HBaseClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -35,14 +36,15 @@ import java.util.Map;
 @Slf4j
 public class WebPageStore implements Store<CrawlerMessage> {
 
-    private Map<Job, HBaseClient> hBaseClientPool = new HashMap<>();
+    private Map<Category, HBaseClient> hBaseClientPool = new HashMap<>();
 
     @Override
     public void save(CrawlerMessage crawlerMgs) {
-        Job job = crawlerMgs.getJob();
-        HBaseClient hBaseClient = getHBaseClient(job);
+        QueueMessage queueMsg = crawlerMgs.getQueueMessage();
+        Category category = queueMsg.getCategory();
+        HBaseClient hBaseClient = getHBaseClient(category);
         if (null != hBaseClient) {
-            String url = crawlerMgs.getRequestMsg().getURL();
+            String url = queueMsg.getRequestMsg().getURL();
             String page = crawlerMgs.getResponseMsg().getBody();
             String rowKey = MessageDigestUtil.MD5(url);
             log.debug("store page of url {} into HBase.", url);
@@ -50,12 +52,12 @@ public class WebPageStore implements Store<CrawlerMessage> {
         }
     }
 
-    private HBaseClient getHBaseClient(Job job) {
-        HBaseClient hBaseClient = hBaseClientPool.get(job);
+    private HBaseClient getHBaseClient(Category category) {
+        HBaseClient hBaseClient = hBaseClientPool.get(category);
         if (null == hBaseClient) {
             try {
-                hBaseClient = new HBaseClient(job);
-                hBaseClientPool.put(job, hBaseClient);
+                hBaseClient = new HBaseClient(category.getType());
+                hBaseClientPool.put(category, hBaseClient);
             } catch (IOException e) {
                 log.error("create HBase client instance error");
             }

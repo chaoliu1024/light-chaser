@@ -16,6 +16,7 @@
 
 package group.chaoliu.lightchaser.core.fission.proxy;
 
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
 import group.chaoliu.lightchaser.core.fission.proxy.domain.ProxyPO;
 import group.chaoliu.lightchaser.core.fission.proxy.mapper.ProxyMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +45,37 @@ public class ProxyService {
     public void batchInsertProxy(List<ProxyPO> proxies) {
         log.info("batch insert proxies...");
         proxyMapper.insertBatchProxies(proxies);
+    }
+
+    public List<Proxy> fetchAllProxies() {
+        ProxyPO proxy = new ProxyPO();
+        return proxyMapper.fetchProxies(proxy);
+    }
+
+    /**
+     * 通用代理
+     */
+    public List<Proxy> fetchCommonProxies() {
+        ProxyPO proxy = new ProxyPO();
+        proxy.setLevel(1);
+        return proxyMapper.fetchProxies(proxy);
+    }
+
+    /**
+     * 携程代理
+     */
+    public List<Proxy> fetchCtripProxies() {
+        ProxyPO proxy = new ProxyPO();
+        proxy.setLevel(2);
+        return proxyMapper.fetchProxies(proxy);
+    }
+
+    /**
+     * delete ineffective proxy
+     *
+     * @param failedCount count of proxy validate failed
+     */
+    public void deleteIneffectiveProxies(int failedCount) {
+        proxyMapper.deleteIneffectiveProxies(failedCount);
     }
 }

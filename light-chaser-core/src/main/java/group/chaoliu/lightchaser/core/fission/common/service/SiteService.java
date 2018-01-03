@@ -15,7 +15,7 @@
  */
 package group.chaoliu.lightchaser.core.fission.common.service;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
 import group.chaoliu.lightchaser.core.fission.common.domain.JobTypePO;
 import group.chaoliu.lightchaser.core.fission.common.domain.SitePO;
 import group.chaoliu.lightchaser.core.fission.common.mapper.SiteMapper;
@@ -40,15 +40,15 @@ public class SiteService {
     /**
      * 记录抓取站点
      */
-    public void siteLog(Job job) {
+    public void siteLog(Category category) {
 
-        String type = job.getType();
+        String type = category.getType();
         JobTypePO jobTypePO = new JobTypePO();
         jobTypePO.setJobName(type);
 
         int jobTypeId = jobTypeService.insertJobType(jobTypePO);
 
-        String domainKey = job.getName();
+        String domainKey = category.getName();
         SitePO site = new SitePO();
         site.setDomainKey(domainKey);
         site.setJobType(jobTypeId);

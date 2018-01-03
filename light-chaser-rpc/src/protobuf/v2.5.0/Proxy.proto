@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+package protobuf;
+
+option java_package = "group.chaoliu.lightchaser.rpc.netty.protobuf";
+option java_outer_classname = "ProxyProto";
+
+message ProxyMsg {
+    optional Proxy proxy = 1;
+    enum MsgType {
+        REQ_MSG = 0; // 请求消息
+        PROXY_MSG = 1; // 代理
+        FEEDBACK_MSG = 2; // 反馈信息
+    }
+    optional string domainKey = 2;
+    optional string reqId = 3; // 请求的UUID
+    optional MsgType msgType = 4 [default = REQ_MSG];
+}
+
+message Proxy {
+    required string host = 1;
+    required int32 port = 2;
+    required string type = 3; // http or https or socket
+    required int32 code = 4;
+}

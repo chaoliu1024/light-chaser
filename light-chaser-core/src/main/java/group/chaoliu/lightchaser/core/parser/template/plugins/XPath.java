@@ -49,7 +49,7 @@ public class XPath implements Parse {
         Node xpathNode = pluginEle.selectSingleNode("./xpath");
         String xpathValue = xpathNode.getStringValue().trim();
 
-        log.debug("\tthis URL: {}", crawlerMsg.getRequestMsg().getURL());
+        log.debug("\tthis URL: {}", crawlerMsg.getQueueMessage().getRequestMsg().getURL());
         log.debug("\tlevel   : {}", pluginEle.attributeValue("level"));
         log.debug("\txpath   : {}", xpathValue);
 

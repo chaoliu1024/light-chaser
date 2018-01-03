@@ -16,7 +16,8 @@
 
 package group.chaoliu.lightchaser.core.crawl.template;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.Category;
 import org.junit.Test;
 
 /**
@@ -29,7 +30,7 @@ public class CrawlTemplateTest {
 
     @Test
     public void CrawlTemplate() {
-        CrawlTemplate crawlTemplate = new CrawlTemplate(new Job("ota", "tuniu"));
+        CrawlTemplate crawlTemplate = new CrawlTemplate(new Category("ota", "tuniu"));
         System.out.println(crawlTemplate.getCrawlParameters());
     }
 }

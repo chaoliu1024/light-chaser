@@ -41,8 +41,8 @@ import java.util.Map;
 @Slf4j
 public class JsonWrapper extends Wrapper {
 
-    public JsonWrapper(Node node) {
-        super(node);
+    public JsonWrapper(Element rootEle) {
+        super(rootEle);
     }
 
     private Map result = new HashMap();
@@ -55,7 +55,7 @@ public class JsonWrapper extends Wrapper {
         result.put(DATA_KEY, null);
 
         try {
-            extractFields(super.wrapperNode, json, result, wrapperEntity);
+            extractFields(super.wrapperEle, json, result, wrapperEntity);
         } catch (Exception e) {
             log.error("解析URL {}, 内容 {} 错误 {}", wrapperEntity.getUrl(),
                     wrapperEntity.getText(), e);
@@ -65,15 +65,13 @@ public class JsonWrapper extends Wrapper {
     }
 
     /**
-     * @param wrapNode wrapper xml node
-     * @param jsonObj  json object
-     * @param fields   result fields
-     * @param entity   wrapper entity
+     * @param wrapEle wrapper xml node
+     * @param jsonObj json object
+     * @param fields  result fields
+     * @param entity  wrapper entity
      */
-    public void extractFields(Node wrapNode, Object jsonObj,
+    public void extractFields(Element wrapEle, Object jsonObj,
                               Map<String, String> fields, WrapperEntity entity) {
-
-        Element wrapEle = (Element) wrapNode;
 
         if (jsonObj instanceof String || jsonObj instanceof BigDecimal || jsonObj instanceof Integer) {
             if (Dom4jUtil.isAttributeNotBlank(wrapEle, NODE_NAME)) {
@@ -96,14 +94,16 @@ public class JsonWrapper extends Wrapper {
             if (null != wrapEle.attribute(NODE_KEY)) {
                 try {
                     if (Dom4jUtil.isAttributeNotBlank(wrapEle, NODE_NAME)) {
-                        fields.put(wrapEle.attributeValue(NODE_NAME).trim(), json.toJSONString());
+                        if (null != json) {
+                            fields.put(wrapEle.attributeValue(NODE_NAME).trim(), json.toJSONString());
+                        }
                     }
                 } catch (DOMException e) {
                     log.error("extract json key {} fail. error info: {}", wrapEle.attributeValue(NODE_NAME).trim(), e);
                 }
             }
         } else { // recurse extract plugin node
-            List<WrapperEntity> res = extractFields(entity, wrapNode);
+            List<WrapperEntity> res = extractFields(entity, wrapEle);
             for (WrapperEntity r : res) {
                 if (StringUtils.isNotBlank(r.getText())) {
                     fields.put(wrapEle.attributeValue(NODE_NAME).trim(), r.getText().trim());
@@ -130,7 +130,9 @@ public class JsonWrapper extends Wrapper {
                     }
                 } else {
                     JSONObject jsonO = (JSONObject) jsonE;
-                    jsonE = jsonO.get(keys);
+                    if (null != jsonO) {
+                        jsonE = jsonO.get(keys);
+                    }
                 }
             }
 
@@ -145,7 +147,7 @@ public class JsonWrapper extends Wrapper {
                     }
                     if (null != field) {
                         mergeFields(fields, field, wrapEle);
-                        extractFields(fieldNode, array, field, entity);
+                        extractFields(fieldEle, array, field, entity);
                     }
                 }
             } else {
@@ -153,7 +155,7 @@ public class JsonWrapper extends Wrapper {
                 if (null != field) {
                     mergeFields(fields, field, wrapEle);
                 }
-                extractFields(fieldNode, jsonE, field, entity);
+                extractFields(fieldEle, jsonE, field, entity);
             }
         }
         entity.setJson(entityJSON);

@@ -16,10 +16,11 @@
 
 package group.chaoliu.lightchaser.core.daemon;
 
+import group.chaoliu.lightchaser.common.Category;
 import group.chaoliu.lightchaser.core.crawl.CrawlSpeedController;
 import group.chaoliu.lightchaser.core.daemon.photon.Radiator;
 import group.chaoliu.lightchaser.core.filter.BloomFilter;
-import group.chaoliu.lightchaser.core.queue.IMessagePool;
+import group.chaoliu.lightchaser.mq.IMessagePool;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +30,6 @@ import lombok.Setter;
  * @author chao liu
  * @since Light Chaser 0.0.1
  */
-
 public class FlectionSpaceTime {
 
     @Getter
@@ -46,14 +46,16 @@ public class FlectionSpaceTime {
 
     @Getter
     @Setter
-    private Job job;
-
-    @Getter
-    @Setter
-    private Radiator radiator;
+    private Category category;
 
     @Getter
     @Setter
     private boolean isLocal;
 
+    /**
+     * 获取所有的任务，利用Redis Key获取，Reids Key的个数
+     */
+    public void allFlectionSpaceTime() {
+
+    }
 }

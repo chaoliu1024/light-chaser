@@ -16,6 +16,7 @@
 
 package group.chaoliu.lightchaser.core.parser.template.plugins;
 
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.parser.template.Parse;
 import group.chaoliu.lightchaser.core.parser.template.ParseAction;
@@ -46,6 +47,9 @@ public class NextPage implements Parse {
 
     @Override
     public List<CrawlerMessage> parse(CrawlerMessage crawlerMsg, Element pluginEle) {
+
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+
         List<CrawlerMessage> reqMsgs = new ArrayList<>();
 
         Node xpathNode = pluginEle.selectSingleNode("./xpath");
@@ -56,7 +60,7 @@ public class NextPage implements Parse {
         String regex = regexNode.getStringValue().trim();
         String replace = replaceNode.getStringValue().trim();
 
-        log.debug("\tthis URL: {}", crawlerMsg.getRequestMsg().getURL());
+        log.debug("\tthis URL: {}", queueMsg.getRequestMsg().getURL());
         log.debug("\tlevel   : {}", pluginEle.attributeValue("level"));
         log.debug("\txpath   : {}", xpathValue);
         log.debug("\tregex   : {}", regex);

@@ -313,8 +313,9 @@ public class RAMBloomFilter<E> implements BloomFilter<E>, Serializable {
      */
     public void add(byte[] bytes) {
         int[] hashes = createHashes(bytes, k);
-        for (int hash : hashes)
+        for (int hash : hashes) {
             bitset.set(Math.abs(hash % bitSetSize), true);
+        }
         numberOfAddedElements++;
     }
 
@@ -325,8 +326,9 @@ public class RAMBloomFilter<E> implements BloomFilter<E>, Serializable {
      */
     @Override
     public void addAll(Collection<? extends E> c) {
-        for (E element : c)
+        for (E element : c) {
             add(element);
+        }
     }
 
     /**
@@ -370,9 +372,11 @@ public class RAMBloomFilter<E> implements BloomFilter<E>, Serializable {
      */
     @Override
     public boolean containsAll(Collection<? extends E> c) {
-        for (E element : c)
-            if (!contains(element))
+        for (E element : c) {
+            if (!contains(element)) {
                 return false;
+            }
+        }
         return true;
     }
 

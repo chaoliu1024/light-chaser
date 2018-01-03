@@ -18,12 +18,16 @@ package group.chaoliu.lightchaser.core.crawl;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import group.chaoliu.lightchaser.core.config.Constants;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.config.Constants;
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
+import group.chaoliu.lightchaser.core.crawl.template.CategoryTemplate;
 import group.chaoliu.lightchaser.core.crawl.template.CrawlTemplate;
-import group.chaoliu.lightchaser.core.crawl.template.JobTemplate;
 import group.chaoliu.lightchaser.core.crawl.template.WrapperTemplate;
 import group.chaoliu.lightchaser.core.daemon.FlectionSpaceTime;
-import group.chaoliu.lightchaser.core.daemon.Job;
 import group.chaoliu.lightchaser.core.daemon.planet.Planet;
 import group.chaoliu.lightchaser.core.fission.BaseFission;
 import group.chaoliu.lightchaser.core.parser.ParseHandler;
@@ -33,13 +37,14 @@ import group.chaoliu.lightchaser.core.persistence.ImageStore;
 import group.chaoliu.lightchaser.core.persistence.WebPageStore;
 import group.chaoliu.lightchaser.core.protocol.http.BasicHttpClient;
 import group.chaoliu.lightchaser.core.protocol.http.HttpClient;
-import group.chaoliu.lightchaser.core.protocol.http.RequestMessage;
-import group.chaoliu.lightchaser.core.protocol.http.ResponseMessage;
 import group.chaoliu.lightchaser.core.util.Dom4jUtil;
 import group.chaoliu.lightchaser.core.util.SpringBeanUtil;
 import group.chaoliu.lightchaser.core.wrapper.WrapHandler;
+import group.chaoliu.lightchaser.core.wrapper.WrapResult;
 import group.chaoliu.lightchaser.core.wrapper.template.TemplateWrapHandler;
 import group.chaoliu.lightchaser.core.wrapper.template.Wrapper;
+import group.chaoliu.lightchaser.rpc.netty.proxy.ProxyCode;
+import group.chaoliu.lightchaser.rpc.netty.proxy.ProxySocket;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -79,11 +84,18 @@ public class Crawler {
     @Getter
     private FlectionSpaceTime flectionST;
 
-    // light-chaser.yaml
+    /**
+     * light-chaser.yaml
+     */
     @Getter
     private Map config;
 
-    // 是否使用代理
+    @Setter
+    private ProxySocket proxyClient;
+
+    /**
+     * 是否使用代理
+     */
     private boolean useProxy = false;
 
     private boolean isStorePage = false;
@@ -93,8 +105,10 @@ public class Crawler {
     @Autowired
     private WebPageStore webPageStore;
 
-    // 内部队列
-    public static Queue<CrawlerMessage> innerQueue = new ConcurrentLinkedQueue<>();
+    /**
+     * 内部队列
+     */
+    public static Queue<QueueMessage> innerQueue = new ConcurrentLinkedQueue<>();
 
     public void setConfig(Map config) {
         this.config = config;
@@ -117,15 +131,13 @@ public class Crawler {
         this.httpClient = new HttpClient(client);
     }
 
-    public void initTemplate(Job job) {
+    public void initTemplate(Category category) {
 
-        if (null == Planet.templateCache.getTemplates().get(job)) {
-
-            CrawlTemplate crawlTemplate = new CrawlTemplate(job);
-            WrapperTemplate wrapperTemplate = new WrapperTemplate(job);
-
-            JobTemplate template = new JobTemplate(job, crawlTemplate, wrapperTemplate);
-            Planet.templateCache.putSiteTemplate(job, template);
+        if (null == Planet.templateCache.getTemplates().get(category)) {
+            CrawlTemplate crawlTemplate = new CrawlTemplate(category);
+            WrapperTemplate wrapperTemplate = new WrapperTemplate(category);
+            CategoryTemplate template = new CategoryTemplate(category, crawlTemplate, wrapperTemplate);
+            Planet.templateCache.putCategoryTemplate(category, template);
         }
     }
 
@@ -153,24 +165,24 @@ public class Crawler {
      */
     private Map nucleusFusion(CrawlerMessage crawlerMgs) {
 
-        CrawlerMessage _msg = crawl(crawlerMgs);
+        CrawlerMessage cMsg = crawl(crawlerMgs);
 
-        if (null != _msg) {
+        if (null != cMsg) {
 
-            Map wrapperInfo = wrapper.wrap(crawlerMgs);
-
+            WrapResult wrapResult = wrapper.wrap(crawlerMgs);
             ParseResult parseResult = parser.parse(crawlerMgs);
 
-            wrapperInfo.put(TemplateParseHandler.MERGE_KEY, parseResult.getMergeInfo());
+            Map wrapperInfo = wrapResult.getResult();
 
+            wrapperInfo.put(TemplateParseHandler.MERGE_KEY, parseResult.getMergeInfo());
             String mergeInfo = parseResult.getMergeInfo();
 
             if (StringUtils.isNotBlank(mergeInfo)) {
                 List<CrawlerMessage> msgs = parseResult.getMessages();
                 if (CollectionUtils.isNotEmpty(msgs)) {
-                    List<CrawlerMessage> _msgs = filterNotCrawledMsgs(msgs);
-                    if (CollectionUtils.isNotEmpty(_msgs)) {
-                        innerQueue.addAll(msgs);
+                    List<QueueMessage> cMsgs = filterNotCrawledMsgs(msgs);
+                    if (CollectionUtils.isNotEmpty(cMsgs)) {
+                        innerQueue.addAll(cMsgs);
                     }
                 }
             }
@@ -180,50 +192,74 @@ public class Crawler {
         }
     }
 
+    /**
+     * 保留抽取失败的信息
+     */
+    public void storeErrorWrap(String url, List<String> errorFields) {
+
+    }
+
     public void run(CrawlerMessage crawlerMsg) {
         try {
-            CrawlerMessage _msg = crawl(crawlerMsg);
-            if (null != _msg) {
+            CrawlerMessage cMsg = crawl(crawlerMsg);
+            if (null != cMsg) {
+                QueueMessage queueMsg = cMsg.getQueueMessage();
+
                 // whole information
                 Map wholeInfo = new HashMap<>();
 
-                Map wrapperInfo = wrapper.wrap(_msg);
-                ParseResult parseResult = parser.parse(_msg);
+                WrapResult wrapResult = wrapper.wrap(cMsg);
+                ParseResult parseResult = parser.parse(cMsg);
+
+                Map wrapperInfo = null;
+
+                if (null != wrapResult) {
+                    if (!wrapResult.isSuccess()) {
+                        wrapperInfo = null;
+
+                        storeErrorWrap(queueMsg.getRequestMsg().getURL(), wrapResult.getErrorField());
+
+                    } else {
+                        wrapperInfo = wrapResult.getResult();
+                    }
+                }
 
                 List<CrawlerMessage> msgs = parseResult.getMessages();
                 String mergeInfo = parseResult.getMergeInfo();
 
                 // inner crawl task
                 if (StringUtils.isNotBlank(mergeInfo) && TemplateParseHandler.MERGE_XML_VALUE.equals(mergeInfo)) {
-                    wholeInfo = innerCrawl(wrapperInfo, mergeInfo, _msg.getURLLevel(), msgs);
+                    wholeInfo = innerCrawl(wrapperInfo, mergeInfo, queueMsg.getUrlLevel(), msgs);
                 } else {
                     if (null != wrapperInfo && null != wrapperInfo.get(Wrapper.DATA_KEY)) {
                         wholeInfo.putAll(wrapperInfo);
                     }
                     if (CollectionUtils.isNotEmpty(msgs)) {
-                        List<CrawlerMessage> _msgs = filterNotCrawledMsgs(msgs);
-                        if (CollectionUtils.isNotEmpty(_msgs)) {
-                            flectionST.getMessagePool().addMessage(_msgs);
+                        List<QueueMessage> cMsgs = filterNotCrawledMsgs(msgs);
+                        if (CollectionUtils.isNotEmpty(cMsgs)) {
+                            flectionST.getMessagePool().addMessage(cMsgs);
                         }
                     }
                 }
 
-
                 if (!wholeInfo.isEmpty()) {
+                    wholeInfo.put(Wrapper.CATEGORY_SUFFIX, flectionST.getCategory().getSuffix());
                     System.out.println(wholeInfo);
                     if (isStoreMySQL) {
-                        String beanName = wholeInfo.get(Wrapper.JOB_TYPE_KEY) + BaseFission.FISSION_BEAN_SUFFIX;
+                        String beanName = wholeInfo.get(Wrapper.CATEGORY_TYPE_KEY) + BaseFission.FISSION_BEAN_SUFFIX;
                         fission = SpringBeanUtil.fissionBean(beanName);
-                        fission.fission(wholeInfo);
+                        if (null != fission) {
+                            fission.fission(wholeInfo);
+                        }
                     }
                 } else if (wholeInfo.isEmpty() && null == msgs) {
                     // TODO 存储失败内容
-                    log.error("{} fail", crawlerMsg.getRequestMsg().getURL());
+                    log.error("{} fail", queueMsg.getRequestMsg().getURL());
                 }
             }
         } catch (Exception e) {
-            log.error("抓取URL: {} 错误, 抓取内容 {}\n, 错误代码: {}",
-                    crawlerMsg.getRequestMsg().getURL(), crawlerMsg.getResponseMsg().getBody(), e);
+            log.error("抓取URL: {} 错误, 错误代码: {}",
+                    crawlerMsg.getQueueMessage().getRequestMsg().getURL(), e);
         }
     }
 
@@ -232,30 +268,32 @@ public class Crawler {
      *
      * @param wrapperInfo wrapperInfo
      * @param mergeInfo   mergeInfo
-     * @param URLLevel    level of url
+     * @param urlLevel    level of url
      * @param msgs        crawl message
      * @return whole information of a crawl task
      */
-    private Map innerCrawl(Map wrapperInfo, String mergeInfo, int URLLevel, List<CrawlerMessage> msgs) {
+    private Map innerCrawl(Map wrapperInfo, String mergeInfo, int urlLevel, List<CrawlerMessage> msgs) {
 
         Map wholeInfo = new ConcurrentHashMap<>();
 
         if (null != wrapperInfo && null != wrapperInfo.get(Wrapper.DATA_KEY)) {
             if (TemplateParseHandler.MERGE_XML_VALUE.equals(mergeInfo)) {
                 wrapperInfo.put(TemplateParseHandler.MERGE_KEY, TemplateParseHandler.MERGE_XML_VALUE);
-                wrapperInfo.put(TemplateParseHandler.FOCUS_ID_KEY, String.valueOf(URLLevel));
+                wrapperInfo.put(TemplateParseHandler.FOCUS_ID_KEY, String.valueOf(urlLevel));
                 wholeInfo.putAll(wrapperInfo);
             }
         }
         // TODO 利用线程池抓取
         if (CollectionUtils.isNotEmpty(msgs)) {
-            List<CrawlerMessage> _msgs = filterNotCrawledMsgs(msgs);
-            if (CollectionUtils.isNotEmpty(_msgs)) {
-                innerQueue.addAll(msgs);
+            List<QueueMessage> cMsgs = filterNotCrawledMsgs(msgs);
+            if (CollectionUtils.isNotEmpty(cMsgs)) {
+                innerQueue.addAll(cMsgs);
             }
             while (!innerQueue.isEmpty()) {
-                CrawlerMessage msg = innerQueue.poll();
-                Map partInfo = nucleusFusion(msg);
+                QueueMessage msg = innerQueue.poll();
+                CrawlerMessage crawlerMsg = new CrawlerMessage();
+                crawlerMsg.setQueueMessage(msg);
+                Map partInfo = nucleusFusion(crawlerMsg);
                 wrapMerge(wholeInfo, partInfo);
             }
         }
@@ -266,17 +304,18 @@ public class Crawler {
      * The message which not been crawled by utilizing Bloom Filter
      *
      * @param msgs crawl message
-     * @return crawl message which not been crawled
+     * @return message which not been crawled
      */
-    private List<CrawlerMessage> filterNotCrawledMsgs(List<CrawlerMessage> msgs) {
-        List<CrawlerMessage> _msgs = new ArrayList<>();
+    private List<QueueMessage> filterNotCrawledMsgs(List<CrawlerMessage> msgs) {
+        List<QueueMessage> cMsgs = new ArrayList<>();
         for (CrawlerMessage msg : msgs) {
-            String url = msg.getRequestMsg().getURL();
+            QueueMessage qMsg = msg.getQueueMessage();
+            String url = qMsg.getRequestMsg().getURL();
             if (!flectionST.getBloomFilter().contains(url)) {
-                _msgs.add(msg);
+                cMsgs.add(qMsg);
             }
         }
-        return _msgs;
+        return cMsgs;
     }
 
     /**
@@ -288,17 +327,52 @@ public class Crawler {
      */
     private Map wrapMerge(Map wholeInfo, Map partInfo) {
         // 都有merge标签
-        if (wholeInfo.containsKey(TemplateParseHandler.MERGE_KEY) && partInfo.containsKey(TemplateParseHandler.MERGE_KEY)) {
+        if (wholeInfo.containsKey(TemplateParseHandler.MERGE_KEY)
+                && partInfo.containsKey(TemplateParseHandler.MERGE_KEY)) {
             if (wholeInfo.get(TemplateParseHandler.FOCUS_ID_KEY).equals(partInfo.get(TemplateParseHandler.MERGE_KEY))) {
                 Map part = (Map) partInfo.get(Wrapper.DATA_KEY);
                 Map whole = (Map) wholeInfo.get(Wrapper.DATA_KEY);
-                // TODO 这里最好用java泛型
                 for (Object key : part.keySet()) {
                     if (whole.containsKey(key)) {
-                        // TODO 根据格式追加数据
-//                        whole.get(key).append(part.get(key));
+                        // 合并相同key数据
+                        Object focusData = whole.get(key);
+                        Object partData = part.get(key);
+                        if (focusData instanceof List) {
+                            if (partData instanceof String) {
+                                if (StringUtils.isNotBlank((String) partData)) {
+                                    ((List) focusData).add(partData);
+                                }
+                            }
+                            if (partData instanceof List) {
+                                if (((List) partData).size() > 0) {
+                                    ((List) focusData).addAll((List) partData);
+                                }
+                            }
+                        } else if (focusData instanceof String) {
+                            if (partData instanceof String) {
+                                // 若focus data中, 与part data相同key的有值/不为空, 保留focus data值, part data忽略
+                                if (StringUtils.isBlank((String) focusData)) {
+                                    whole.put(key, partData);
+                                }
+                            }
+                            if (partData instanceof List) {
+                                if (((List) partData).size() > 0) {
+                                    ((List) focusData).addAll((List) partData);
+                                }
+                            }
+                        }
                     } else {
-                        whole.put(key, part.get(key));
+                        // 新增key数据
+                        Object partData = part.get(key);
+                        if (partData instanceof String) {
+                            if (StringUtils.isNotBlank((String) partData)) {
+                                whole.put(key, partData);
+                            }
+                        } else if (partData instanceof List) {
+                            if (((List) partData).size() > 0) {
+                                whole.put(key, partData);
+                            }
+                        }
                     }
                 }
             }
@@ -317,7 +391,7 @@ public class Crawler {
             if (Dom4jUtil.isAttributeNotBlank(levelElement, TemplateParseHandler.HTTP_METHOD)) {
                 // post method
                 if ("post".equals(levelElement.attributeValue(TemplateParseHandler.HTTP_METHOD).trim())) {
-                    crawlerMgs.getRequestMsg().setPostRequest(true);
+                    crawlerMgs.getQueueMessage().getRequestMsg().setPostRequest(true);
                 }
             }
         }
@@ -325,39 +399,46 @@ public class Crawler {
 
     public CrawlerMessage crawl(CrawlerMessage crawlerMgs) {
 
-        Job job = crawlerMgs.getJob();
+        QueueMessage queueMsg = crawlerMgs.getQueueMessage();
+        Category category = queueMsg.getCategory();
 
-        initTemplate(job);
+        initTemplate(category);
         setPostMethod(crawlerMgs);
 
-        RequestMessage requestMsg = crawlerMgs.getRequestMsg();
+        RequestMessage requestMsg = queueMsg.getRequestMsg();
 
         String url = requestMsg.getURL();
-        int i = 10;
-        while (i > 0) {
-            i--;
-            if (!flectionST.getBloomFilter().contains(url)) {
+        if (!flectionST.getBloomFilter().contains(url)) {
+            int i = 10;
+            while (i > 0) {
+                i--;
                 log.info("Crawl url {}", url);
                 ResponseMessage rspMsg;
-                if (requestMsg.isPostRequest()) {
-                    if (useProxy && null != flectionST.getRadiator()) {
-                        HttpClient client = BasicHttpClient.buildProxyHttpClient(flectionST.getRadiator().randomProxy());
+
+                Proxy proxy = null;
+                if (useProxy && !"proxy".equals(category.getType())) {
+                    proxy = proxyClient.requestProxy(category.getName());
+                    if (proxy == null || proxy.isNull()) {
+                        continue;
+                    }
+                    HttpClient client = BasicHttpClient.buildProxyHttpClient(proxy);
+                    if (requestMsg.isPostRequest()) {
                         rspMsg = client.POST(requestMsg);
                     } else {
-                        rspMsg = this.httpClient.POST(requestMsg);
-                    }
-                } else {
-                    if (useProxy && null != flectionST.getRadiator()) {
-                        HttpClient client = BasicHttpClient.buildProxyHttpClient(flectionST.getRadiator().randomProxy());
                         rspMsg = client.GET(requestMsg);
+                    }
+
+                } else {
+                    if (requestMsg.isPostRequest()) {
+                        rspMsg = this.httpClient.POST(requestMsg);
                     } else {
                         rspMsg = this.httpClient.GET(requestMsg);
                     }
                 }
 
-                flectionST.getBloomFilter().add(url);
-
                 if (StringUtils.isNotBlank(rspMsg.getBody())) {
+
+                    flectionST.getBloomFilter().add(url);
 
                     pageType(crawlerMgs, rspMsg.getBody());
 
@@ -369,19 +450,29 @@ public class Crawler {
                     }
 
                     try {
-                        Thread.sleep(flectionST.getSpeedController().getSpeedCache().get(job).randomSpeed());
+                        SiteSpeed siteSpeed = flectionST.getSpeedController().getSpeedCache().get(category);
+                        if (null != siteSpeed) {
+                            Thread.sleep(siteSpeed.randomSpeed());
+                        }
                     } catch (InterruptedException e) {
                         log.error("Sleep error: {}.", e);
+                    }
+                    if (useProxy && null != proxy) {
+                        proxyClient.feedback(proxy, ProxyCode.OK, category.getName());
                     }
                     return crawlerMgs;
                 } else if (ImageStore.isImageURL(url)) {
                     return null;
                 } else {
-                    log.error("response body is null!");
+                    if (useProxy && null != proxy) {
+                        proxyClient.feedback(proxy, ProxyCode.ERROR, category.getName());
+                    } else {
+                        log.error("response body is null!");
+                    }
                 }
-            } else {
-                log.info("The url {} has been crawled", url);
             }
+        } else {
+            log.info("The url {} has been crawled", url);
         }
         return null;
     }

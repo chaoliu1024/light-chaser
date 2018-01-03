@@ -16,7 +16,8 @@
 
 package group.chaoliu.lightchaser.core.crawl.template;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.Category;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class WrapperTemplateTest {
 
     @Test
     public void WrapperConfig() {
-        WrapperTemplate config = new WrapperTemplate(new Job("otc", "gewara"));
+        WrapperTemplate config = new WrapperTemplate(new Category("otc", "gewara"));
         List<Node> wrappers = config.getWrapperPatternNodes();
         for (Node wraper : wrappers) {
             Element a = (Element) wraper;

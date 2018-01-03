@@ -4,12 +4,16 @@
 
 <mapper namespace="group.chaoliu.lightchaser.core.fission.ota.mapper.CalendarPriceMapper">
 
-    <select id="fetchDatePriceByID" parameterType="int" resultType="CalendarPrice">
-        select * from date_price where id = #{id}
+    <sql id="baseTable">
+        `ota_calendar_price_${suffix}`
+    </sql>
+
+    <select id="fetchCalendarPriceByID" parameterType="int" resultType="CalendarPrice">
+        select * from <include refid="baseTable" /> where id = #{id}
     </select>
 
     <insert id="insertCalendarPrice" parameterType="CalendarPrice">
-        INSERT INTO `ota_calendar_price`(
+        INSERT INTO <include refid="baseTable" />(
         site, product_type, product_id, book_city, `date`, price, crawl_time
         ) VALUES
         <foreach collection="calendarPrices" item="calendarPrice" separator=",">

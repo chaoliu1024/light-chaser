@@ -17,13 +17,15 @@
 package group.chaoliu.lightchaser.core.wrapper.template;
 
 import com.alibaba.fastjson.JSONObject;
-import group.chaoliu.lightchaser.core.config.LoadConfig;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.config.YamlConfig;
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.crawl.template.WrapperTemplate;
-import group.chaoliu.lightchaser.core.daemon.Job;
 import group.chaoliu.lightchaser.core.daemon.star.Star;
-import group.chaoliu.lightchaser.core.protocol.http.RequestMessage;
-import group.chaoliu.lightchaser.core.protocol.http.ResponseMessage;
 import group.chaoliu.lightchaser.core.util.FileUtil;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -50,7 +52,7 @@ public class JsonWrapperTest {
 
         String url = "http://vacations.ota.com/bookingnext/Calendar/CalendarInfo?ProductID=3090323&StartCity=141&SalesCity=141&MinPrice=2340&EffectDate=2016-09-13&ExpireDate=2016-11-05";
         int URLLevel = 110;
-        Job job = new Job("ota", "ctrip");
+        Category category = new Category("ota", "ctrip");
 
         InputStream in = this.getClass().getResourceAsStream("/test-page/ctrip_date_price.json");
         String jsonContent = FileUtil.streamToString(in);
@@ -63,10 +65,11 @@ public class JsonWrapperTest {
         responseMsg.setBody(jsonContent);
 
         CrawlerMessage crawlerMsg = new CrawlerMessage();
-        crawlerMsg.setJob(job);
-        crawlerMsg.setURLLevel(URLLevel);
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+        queueMsg.setCategory(category);
+        queueMsg.setUrlLevel(URLLevel);
         crawlerMsg.setResponseMsg(responseMsg);
-        crawlerMsg.setRequestMsg(requestMsg);
+        queueMsg.setRequestMsg(requestMsg);
         crawlerMsg.setJson(json);
 
         return crawlerMsg;
@@ -75,14 +78,16 @@ public class JsonWrapperTest {
     @Before
     public void initData() {
 
-        Map config = LoadConfig.readLightChaserConfig();
+        Map config = YamlConfig.readLightChaserConfig();
         Star star = new Star();
 //        star.initTemplateRootPath(config);
 
         crawlerMsg = initCrawlerMessage();
         wrapperEntity = new WrapperEntity(crawlerMsg);
 
-        WrapperTemplate wrapperTemplate = new WrapperTemplate(crawlerMsg.getJob());
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+
+        WrapperTemplate wrapperTemplate = new WrapperTemplate(queueMsg.getCategory());
 
         List<Node> wrapperPatternNodes = wrapperTemplate.getWrapperPatternNodes();
 
@@ -92,9 +97,9 @@ public class JsonWrapperTest {
             int levelId = Integer.parseInt(patternEle.attributeValue("levelId"));
             String type = patternEle.attributeValue("type");
 
-            int level = crawlerMsg.getURLLevel();
+            int level = queueMsg.getUrlLevel();
             if ((level == levelId) && "json".equals(type)) {
-                wrapper = new JsonWrapper(patternNode);
+                wrapper = new JsonWrapper(patternEle);
             }
         }
     }

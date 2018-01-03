@@ -1,5 +1,7 @@
 package group.chaoliu.lightchaser.core.protocol.http;
 
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;

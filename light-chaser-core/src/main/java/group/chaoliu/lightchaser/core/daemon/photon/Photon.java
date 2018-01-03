@@ -16,34 +16,20 @@
 
 package group.chaoliu.lightchaser.core.daemon.photon;
 
-import group.chaoliu.lightchaser.core.config.Constants;
-import group.chaoliu.lightchaser.core.config.LoadConfig;
-import group.chaoliu.lightchaser.core.crawl.template.Template;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import group.chaoliu.lightchaser.common.config.Constants;
+import group.chaoliu.lightchaser.common.config.ProxyConstants;
+import group.chaoliu.lightchaser.common.config.YamlConfig;
 import group.chaoliu.lightchaser.core.daemon.Deamon;
-import group.chaoliu.lightchaser.core.daemon.Job;
-import group.chaoliu.lightchaser.core.daemon.LocalDaemon;
-import group.chaoliu.lightchaser.core.daemon.star.Star;
-import group.chaoliu.lightchaser.core.fission.BaseFission;
-import group.chaoliu.lightchaser.core.fission.proxy.ProxyFission;
+import group.chaoliu.lightchaser.core.daemon.photon.thread.CrawlProxyThread;
+import group.chaoliu.lightchaser.core.daemon.photon.thread.ValidateProxyThread;
 import group.chaoliu.lightchaser.core.fission.proxy.ProxyValidator;
 import group.chaoliu.lightchaser.core.fission.proxy.ProxyWeb;
-import group.chaoliu.lightchaser.core.fission.proxy.domain.ProxyPO;
-import group.chaoliu.lightchaser.core.fission.proxy.mapper.ProxyMapper;
-import group.chaoliu.lightchaser.core.protocol.http.Proxy;
-import group.chaoliu.lightchaser.core.util.SpringBeanUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 /**
  * @author chao liu
@@ -52,23 +38,13 @@ import java.util.Map;
 @Slf4j
 public class Photon extends Deamon {
 
-    private BaseFission fission = SpringBeanUtil.fissionBean("proxy" + BaseFission.FISSION_BEAN_SUFFIX);
 
+    public void initProxyWeb(final Map proxyConfig) {
 
-    public static final ApplicationContext CONTEXT = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-    private ProxyMapper proxyMapper = CONTEXT.getBean(ProxyMapper.class);
-
-
-    public void initProxyWeb(final Map config) {
-
-        String proxyFile = config.get(Constants.PROXY_FILE).toString().trim();
-        Map proxyConfig = LoadConfig.readConfig(proxyFile);
-
-        Map<String, List> proxyWebs = (Map) proxyConfig.get(Constants.PROXY_VERIFIERS);
+        Map<String, List> proxyWebs = (Map) proxyConfig.get(ProxyConstants.PROXY_VERIFIERS);
         for (Map.Entry<String, List> web : proxyWebs.entrySet()) {
             ProxyWeb proxyWeb = new ProxyWeb();
-            ProxyValidator.webProxy.put(web.getKey(), proxyWeb);
+            ProxyValidator.WEB_PROXY.put(web.getKey(), proxyWeb);
             for (Object webInfos : web.getValue()) {
                 Map<String, String> info = (Map) webInfos;
                 if (null != info.get(ProxyValidator.WEB_PROXY_URL)) {
@@ -84,65 +60,44 @@ public class Photon extends Deamon {
         }
     }
 
-    public List<String> initProxyJob(Map lightChaserConfig) {
-
-        initTemplateRootPath(lightChaserConfig);
-
-        String proxySites = Template.templateRootPath + "proxy" + File.separator + "proxy_sites.xml";
-        File file = new File(proxySites);
-        SAXReader reader = new SAXReader();
-
-        List<String> proxies = new ArrayList<>();
-        try {
-            Document document = reader.read(file);
-            Element root = document.getRootElement();
-
-            @SuppressWarnings("unchecked")
-            List<Node> sites = root.selectNodes("/proxy_sites/site");
-            for (Node site : sites) {
-                Element ele = (Element) site;
-                if ("true".endsWith(ele.attributeValue("enable"))) {
-                    proxies.add(ele.getTextTrim());
-                }
-            }
-        } catch (DocumentException e) {
-            log.error("Read proxy_sites.xml error: {}", e);
-        }
-        return proxies;
-    }
-
     /**
      * 抓取代理任务
      *
      * @param lightChaserConfig light chaser config
      */
-    public void crawlProxy(Map lightChaserConfig) {
-        initProxyWeb(lightChaserConfig);
-        List<String> proxies = initProxyJob(lightChaserConfig);
-        for (String proxy : proxies) {
-            Job job = new Job("proxy", proxy);
-            LocalDaemon localDaemon = new LocalDaemon();
-            localDaemon.setStar(new Star());
-            localDaemon.getStar().init(job, lightChaserConfig);
-            localDaemon.initSpaceTime(job);
-            localDaemon.submitFlection(lightChaserConfig, localDaemon.flectionST);
-        }
+    public void crawlProxy(Map lightChaserConfig, Map proxyConfig) {
+        initTemplateRootPath(lightChaserConfig);
+        CrawlProxyThread crawlProxyThread = new CrawlProxyThread(lightChaserConfig, proxyConfig);
+
+        ThreadFactory thread = new ThreadFactoryBuilder().setNameFormat("crawl-proxy-thread").build();
+        ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(1024), thread, new ThreadPoolExecutor.AbortPolicy());
+
+        singleThreadPool.execute(crawlProxyThread);
     }
 
-    public void validateProxy() {
-        List<Proxy> cacheProxy = proxyMapper.fetchAllProxies();
-        ProxyFission fission = new ProxyFission();
-        List<ProxyPO> proxyPOS = fission.validateProxy(cacheProxy);
-
-
+    /**
+     * 验证代理
+     */
+    public void validateProxy(Map proxyConfig) {
+        ThreadFactory thread = new ThreadFactoryBuilder().setNameFormat("validate-proxy-thread").build();
+        ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(1024), thread, new ThreadPoolExecutor.AbortPolicy());
+        singleThreadPool.execute(new ValidateProxyThread(proxyConfig));
     }
-
 
     public static void main(String[] args) {
-        Map lightChaserConfig = LoadConfig.readLightChaserConfig();
+
+        Map lightChaserConfig = YamlConfig.readLightChaserConfig();
+        Map proxyConfig = YamlConfig.readProxyConfig();
+
         Photon photon = new Photon();
-        photon.crawlProxy(lightChaserConfig);
-        photon.fission.finish();
-        System.exit(0);
+        photon.initProxyWeb(proxyConfig);
+        log.info("抓取代理服务启动...");
+        photon.crawlProxy(lightChaserConfig, proxyConfig);
+        log.info("验证代理服务启动...");
+        photon.validateProxy(proxyConfig);
+//        Radiator radiator = new Radiator();
+//        radiator.run();
     }
 }

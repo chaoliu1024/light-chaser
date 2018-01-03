@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.chaoliu.lightchaser.core.fission.ota.mapper.OTATableMapper">
+
+    <sql id="tableSuffix">
+        ${suffix}
+    </sql>
+
+    <update id="createOtaCalendarPriceTable">
+        CREATE TABLE IF NOT EXISTS ota_calendar_price_${suffix} (
+            `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+            `site` tinyint(11) NOT NULL COMMENT '站点,关联site.id',
+            `product_type` tinyint(11) NOT NULL COMMENT '产品类型,关联ota_product_type.id',
+            `product_id` varchar(50) NOT NULL COMMENT '产品id',
+            `book_city` varchar(50) NOT NULL COMMENT '预订地',
+            `date` date NOT NULL COMMENT '团期',
+            `price` decimal(10,2) DEFAULT NULL COMMENT '价格',
+            `crawl_time` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '抓取时间',
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `idx_unique` (`site`,`product_type`,`product_id`,`date`),
+            KEY `index_1` (`site`,`product_type`,`product_id`),
+            KEY `idx_product_id` (`product_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='价格日历'
+    </update>
+
+    <update id="createOtaProductTable">
+        CREATE TABLE IF NOT EXISTS ota_product_${suffix} (
+            `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+            `site` tinyint(11) NOT NULL COMMENT '站点,关联site.id',
+            `product_type` tinyint(11) NOT NULL COMMENT '产品类型,关联ota_product_type.id',
+            `product_id` varchar(50) NOT NULL COMMENT '产品id',
+            `product_name` varchar(255) NOT NULL COMMENT '产品名称',
+            `url` varchar(255) NOT NULL COMMENT '产品url',
+            `departure_city` varchar(50) NOT NULL COMMENT '出发地',
+            `destination` varchar(50) DEFAULT NULL COMMENT '目的地',
+            `price` decimal(10,2) DEFAULT NULL COMMENT '产品起价',
+            `crawl_time` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '抓取时间',
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `idx_unique` (`product_id`,`site`,`product_type`),
+            KEY `idx_departure` (`departure_city`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品信息'
+    </update>
+
+    <update id="createOtaProductGroupingTable">
+        CREATE TABLE IF NOT EXISTS ota_product_grouping_${suffix} (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+            `grouping_id` varchar(50) NOT NULL COMMENT '组ID',
+            `product_id` varchar(50) NOT NULL COMMENT '产品ID,关联ota_product.product_id',
+            `product_type` varchar(11) NOT NULL COMMENT '产品类型,关联ota_product_type.id',
+            `is_valid` int(2) NOT NULL COMMENT '产品是否有效',
+            `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+            `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+    </update>
+
+</mapper>

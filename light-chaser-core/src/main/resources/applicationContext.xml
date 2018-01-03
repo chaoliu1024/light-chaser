@@ -10,7 +10,7 @@
 
 
     <!-- 导入属性配置文件   -->
-    <context:property-placeholder location="classpath:application.properties" file-encoding="UTF-8"/>
+    <context:property-placeholder location="classpath:light-chaser.properties" file-encoding="UTF-8"/>
 
     <!-- enable autowired -->
     <context:annotation-config/>

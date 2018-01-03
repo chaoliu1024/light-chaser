@@ -16,8 +16,9 @@
 
 package group.chaoliu.lightchaser.core.parser.template;
 
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
-import group.chaoliu.lightchaser.core.protocol.http.RequestMessage;
 import group.chaoliu.lightchaser.core.util.Dom4jUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -131,17 +132,18 @@ public class ParseAction {
 
                 if (CollectionUtils.isNotEmpty(reqMsgs)) {
                     for (CrawlerMessage msg : reqMsgs) {
+                        QueueMessage queueMsg = msg.getQueueMessage();
                         if (Dom4jUtil.isAttributeNotBlank(pluginEle, TemplateParseHandler.LEVEL)) {
                             int urlLevel = Integer.parseInt(pluginEle.attributeValue(TemplateParseHandler.LEVEL));
-                            msg.setURLLevel(urlLevel);
+                            queueMsg.setUrlLevel(urlLevel);
                         } else {
-                            msg.setURLLevel(crawlerMsg.getURLLevel());
+                            queueMsg.setUrlLevel(crawlerMsg.getQueueMessage().getUrlLevel());
                         }
                         // 将返回头设置会下一层的请求头中
                         if (Dom4jUtil.isAttributeNotBlank(pluginEle, TemplateParseHandler.RESPONSE_HEADERS)) {
                             String headerKey = pluginEle.attributeValue(TemplateParseHandler.RESPONSE_HEADERS).trim();
                             String headerValue = crawlerMsg.getResponseMsg().getResponseHeaders().get(headerKey);
-                            msg.getRequestMsg().getHeaders().put(headerKey, headerValue);
+                            queueMsg.getRequestMsg().getHeaders().put(headerKey, headerValue);
                         }
                         crawlerMsgs.add(msg);
                     }
@@ -149,9 +151,7 @@ public class ParseAction {
             } else {
                 log.info("{} --> attribute 'class' is null", pluginEle.getName());
             }
-        } catch (InstantiationException e) {
-            log.error("error info {}", e);
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             log.error("error info {}", e);
         } catch (ClassNotFoundException e) {
             log.error("{} --> class name: {} can not find this class. error info {}", pluginEle.getName(), pluginEle.attributeValue("class"), e.toString());
@@ -172,13 +172,13 @@ public class ParseAction {
 
         RequestMessage reqMsg = new RequestMessage();
         reqMsg.setURL(newURL);
-        reqMsg.setHeaders(msg.getRequestMsg().getHeaders());
+        reqMsg.setHeaders(msg.getQueueMessage().getRequestMsg().getHeaders());
 
-        Map<String, String> cookies = msg.getRequestMsg().getCookie();
+        Map<String, String> cookies = msg.getQueueMessage().getRequestMsg().getCookie();
         reqMsg.setCookie(cookies);
 
-        crawlerMessage.setRequestMsg(reqMsg);
-        crawlerMessage.setJob(msg.getJob());
+        crawlerMessage.getQueueMessage().setRequestMsg(reqMsg);
+        crawlerMessage.getQueueMessage().setCategory(msg.getQueueMessage().getCategory());
 
         if (null != msg.getHtmlDom()) {
             crawlerMessage.setHtmlDom(msg.getHtmlDom());

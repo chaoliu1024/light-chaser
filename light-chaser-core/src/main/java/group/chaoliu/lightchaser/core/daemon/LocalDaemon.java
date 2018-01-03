@@ -16,21 +16,24 @@
 
 package group.chaoliu.lightchaser.core.daemon;
 
-import group.chaoliu.lightchaser.core.config.LoadConfig;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.config.Constants;
+import group.chaoliu.lightchaser.common.config.YamlConfig;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlSpeedController;
-import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.crawl.template.SeedMsgTemplate;
 import group.chaoliu.lightchaser.core.daemon.photon.Radiator;
 import group.chaoliu.lightchaser.core.daemon.planet.Planet;
 import group.chaoliu.lightchaser.core.daemon.star.Star;
 import group.chaoliu.lightchaser.core.filter.RAMBloomFilter;
-import group.chaoliu.lightchaser.core.queue.RAMMessagePool;
+import group.chaoliu.lightchaser.mq.RAMMessagePool;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author chao liu
@@ -49,30 +52,32 @@ public class LocalDaemon extends Deamon {
     @Setter
     private Planet planet;
 
-    public List<CrawlerMessage> initSeedMsgs(Job job) {
+    public List<QueueMessage> initSeedMsgs(Category category) {
         SeedMsgTemplate seedMsgTemplate = new SeedMsgTemplate();
-        return seedMsgTemplate.initSeedMsgs(job);
+        return seedMsgTemplate.initSeedMsgs(category);
     }
 
-    public void initSpaceTime(Job job) {
+    public void initFlectionSpaceTime(Category category) {
         flectionST = new FlectionSpaceTime();
         flectionST.setLocal(true);
-        flectionST.setJob(job);
+        flectionST.setCategory(category);
         flectionST.setSpeedController(new CrawlSpeedController());
         flectionST.setMessagePool(RAMMessagePool.getInstance());
-        flectionST.setBloomFilter(new RAMBloomFilter<>(0.0000001, Integer.MAX_VALUE));
-        flectionST.setRadiator(new Radiator());
+        flectionST.setBloomFilter(new RAMBloomFilter<>(0.0001, 100000));
     }
 
     public void shutdown() {
-        flectionST.getRadiator().shutdown();
     }
 
     public void submitFlection(Map lightChaserConfig, FlectionSpaceTime flectionST) {
         initTemplateRootPath(lightChaserConfig);
-        List<CrawlerMessage> initMsgs = initSeedMsgs(flectionST.getJob());
+        List<QueueMessage> initMsgs = initSeedMsgs(flectionST.getCategory());
         flectionST.getMessagePool().addMessage(initMsgs);
         planet = new Planet();
+        if (!Objects.equals("proxy", flectionST.getCategory().getType())
+                && (boolean) lightChaserConfig.get(Constants.PROXY_USED)) {
+            planet.connectProxyServer();
+        }
         planet.encircle(flectionST);
         shutdown();
         log.info("job finish...");
@@ -90,12 +95,15 @@ public class LocalDaemon extends Deamon {
         }
         String type = args[0];
         String name = args[1];
-        Job job = new Job(type, name);
-        Map lightChaserConfig = LoadConfig.readLightChaserConfig();
+        Category category = new Category(type, name);
+        Map lightChaserConfig = YamlConfig.readLightChaserConfig();
         LocalDaemon localDaemon = new LocalDaemon();
-        localDaemon.star = new Star();
-        localDaemon.star.init(job, lightChaserConfig);
-        localDaemon.initSpaceTime(job);
+
+        Star star = new Star();
+        star.run(category, lightChaserConfig);
+
+        localDaemon.initFlectionSpaceTime(category);
         localDaemon.submitFlection(lightChaserConfig, localDaemon.flectionST);
     }
+
 }

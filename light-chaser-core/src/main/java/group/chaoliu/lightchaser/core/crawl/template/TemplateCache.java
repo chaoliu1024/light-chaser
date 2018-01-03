@@ -16,7 +16,8 @@
 
 package group.chaoliu.lightchaser.core.crawl.template;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+
+import group.chaoliu.lightchaser.common.Category;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,26 +30,26 @@ import java.util.Map;
  */
 public class TemplateCache {
 
-    private Map<Job, JobTemplate> templatesCache = new HashMap<>();
+    private Map<Category, CategoryTemplate> templatesCache = new HashMap<>();
 
     /**
      * get all site templates
+     * TODO 需要多线程安全？
      *
      * @return site templates
      */
-    // TODO 需要多线程安全？
-    public Map<Job, JobTemplate> getTemplates() {
+    public Map<Category, CategoryTemplate> getTemplates() {
         return this.templatesCache;
     }
 
     /**
      * put one site template into template cache object
+     * TODO 需要多线程安全？
      *
-     * @param job      job
+     * @param category job
      * @param template template
      */
-    // TODO 需要多线程安全？
-    public void putSiteTemplate(Job job, JobTemplate template) {
-        templatesCache.put(job, template);
+    public void putCategoryTemplate(Category category, CategoryTemplate template) {
+        templatesCache.put(category, template);
     }
 }

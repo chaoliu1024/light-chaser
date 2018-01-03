@@ -16,7 +16,7 @@
 
 package group.chaoliu.lightchaser.core.crawl;
 
-import group.chaoliu.lightchaser.core.daemon.Job;
+import group.chaoliu.lightchaser.common.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,12 +32,12 @@ import java.util.Random;
 @Getter
 public class SiteSpeed {
 
-    private Job job;
+    private Category category;
     private int minInterval;
     private int maxInterval;
 
-    public SiteSpeed(Job job, int minInterval, int maxInterval) {
-        this.job = job;
+    public SiteSpeed(Category category, int minInterval, int maxInterval) {
+        this.category = category;
         this.minInterval = minInterval;
         this.maxInterval = maxInterval;
     }
@@ -49,7 +49,7 @@ public class SiteSpeed {
 
     @Override
     public String toString() {
-        return "SiteSpeed{job='" + job + '\'' +
+        return "SiteSpeed{category='" + category + '\'' +
                 ", minInterval=" + minInterval + ", maxInterval=" + maxInterval + '}';
     }
 }

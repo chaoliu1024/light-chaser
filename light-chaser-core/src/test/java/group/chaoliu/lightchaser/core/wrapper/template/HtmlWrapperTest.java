@@ -16,14 +16,15 @@
 
 package group.chaoliu.lightchaser.core.wrapper.template;
 
-import group.chaoliu.lightchaser.core.config.LoadConfig;
+import group.chaoliu.lightchaser.common.Category;
+import group.chaoliu.lightchaser.common.config.YamlConfig;
+import group.chaoliu.lightchaser.common.protocol.http.RequestMessage;
+import group.chaoliu.lightchaser.common.protocol.http.ResponseMessage;
+import group.chaoliu.lightchaser.common.queue.message.QueueMessage;
 import group.chaoliu.lightchaser.core.crawl.CrawlerMessage;
 import group.chaoliu.lightchaser.core.crawl.HtmlDom;
 import group.chaoliu.lightchaser.core.crawl.template.WrapperTemplate;
-import group.chaoliu.lightchaser.core.daemon.Job;
 import group.chaoliu.lightchaser.core.daemon.star.Star;
-import group.chaoliu.lightchaser.core.protocol.http.RequestMessage;
-import group.chaoliu.lightchaser.core.protocol.http.ResponseMessage;
 import group.chaoliu.lightchaser.core.util.FileUtil;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -54,7 +55,7 @@ public class HtmlWrapperTest {
         InputStream in = this.getClass().getResourceAsStream("/test-page/66ip.html");
         String htmlContent = FileUtil.streamToString(in);
 
-        Job job = new Job("proxy", jobName);
+        Category category = new Category("proxy", jobName);
         RequestMessage requestMsg = new RequestMessage();
         requestMsg.setURL(url);
 
@@ -64,10 +65,11 @@ public class HtmlWrapperTest {
         responseMsg.setBody(htmlContent);
 
         CrawlerMessage crawlerMsg = new CrawlerMessage();
-        crawlerMsg.setJob(job);
-        crawlerMsg.setURLLevel(URLLevel);
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+        queueMsg.setCategory(category);
+        queueMsg.setUrlLevel(URLLevel);
         crawlerMsg.setResponseMsg(responseMsg);
-        crawlerMsg.setRequestMsg(requestMsg);
+        queueMsg.setRequestMsg(requestMsg);
         crawlerMsg.setHtmlDom(htmlDom);
 
         return crawlerMsg;
@@ -76,14 +78,15 @@ public class HtmlWrapperTest {
     @Before
     public void initData() {
 
-        Map config = LoadConfig.readLightChaserConfig();
+        Map config = YamlConfig.readLightChaserConfig();
         Star star = new Star();
-//        star.initTemplateRootPath(config);
 
         crawlerMsg = initCrawlerMessage();
+        QueueMessage queueMsg = crawlerMsg.getQueueMessage();
+
         wrapperEntity = new WrapperEntity(crawlerMsg);
 
-        WrapperTemplate wrapperTemplate = new WrapperTemplate(crawlerMsg.getJob());
+        WrapperTemplate wrapperTemplate = new WrapperTemplate(queueMsg.getCategory());
 
         List<Node> wrapperPatternNodes = wrapperTemplate.getWrapperPatternNodes();
 
@@ -93,9 +96,9 @@ public class HtmlWrapperTest {
             int levelId = Integer.parseInt(patternEle.attributeValue("levelId"));
             String type = patternEle.attributeValue("type");
 
-            int level = crawlerMsg.getURLLevel();
+            int level = queueMsg.getUrlLevel();
             if ((level == levelId) && "html".equals(type)) {
-                wrapper = new HtmlWrapper(patternNode);
+                wrapper = new HtmlWrapper(patternEle);
             }
         }
     }

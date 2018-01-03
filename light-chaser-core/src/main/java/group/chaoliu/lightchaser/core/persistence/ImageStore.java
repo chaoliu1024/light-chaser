@@ -48,10 +48,9 @@ public class ImageStore {
 
     public static void save(InputStream input, String url) {
 
-        String domainName = BasicHttpClient.getDomainName(url);
-
-        if (StringUtils.isNotBlank(domainName)) {
-            String domainKey = domainName.split("\\.")[1];
+        String domainKey = BasicHttpClient.getDomainKey(url);
+        
+        if (StringUtils.isNotBlank(domainKey)) {
             String[] urlInfo = url.split("/");
 
             // 文件名

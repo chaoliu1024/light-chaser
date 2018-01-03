@@ -1,6 +1,6 @@
 package group.chaoliu.lightchaser.core.daemon;
 
-import group.chaoliu.lightchaser.core.config.Constants;
+import group.chaoliu.lightchaser.common.config.Constants;
 import group.chaoliu.lightchaser.core.crawl.template.Template;
 import group.chaoliu.lightchaser.core.crawl.template.TemplatePathException;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,10 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Map;
 
+/**
+ * @author chao liu
+ * @since Light Chaser 0.0.1
+ */
 @Slf4j
 public abstract class Deamon {
 

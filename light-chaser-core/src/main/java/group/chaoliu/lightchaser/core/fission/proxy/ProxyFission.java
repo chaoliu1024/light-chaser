@@ -16,9 +16,9 @@
 
 package group.chaoliu.lightchaser.core.fission.proxy;
 
+import group.chaoliu.lightchaser.common.protocol.http.Proxy;
 import group.chaoliu.lightchaser.core.fission.BaseFission;
 import group.chaoliu.lightchaser.core.fission.proxy.domain.ProxyPO;
-import group.chaoliu.lightchaser.core.protocol.http.Proxy;
 import group.chaoliu.lightchaser.core.util.RegexUtil;
 import group.chaoliu.lightchaser.core.wrapper.template.Wrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +28,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * Validate proxies by request the webs in proxy.yaml,
@@ -65,6 +63,9 @@ public class ProxyFission extends BaseFission {
         if (null != data.get(Wrapper.DATA_KEY)) {
 
             List<Map<String, String>> proxies = (List<Map<String, String>>) ((Map) data.get(Wrapper.DATA_KEY)).get(PROXY_KEY);
+            String domainKey = (String) ((Map) data.get(Wrapper.DATA_KEY)).get(Wrapper.DOMAIN_KEY);
+            Date crawlTime = (Date) ((Map) data.get(Wrapper.DATA_KEY)).get(Wrapper.CRAWL_TIME);
+
             if (CollectionUtils.isNotEmpty(proxies)) {
 
                 List<Proxy> _proxies = new ArrayList<>();
@@ -72,6 +73,14 @@ public class ProxyFission extends BaseFission {
                 for (Map<String, String> p : proxies) {
                     if (validateProxy(p)) {
                         Proxy proxy = new Proxy(p.get(PROXY_HOST), Integer.parseInt(p.get(PROXY_PORT)));
+                        if (StringUtils.isNotBlank(domainKey)) {
+                            proxy.setDomainKey(domainKey);
+                        }
+
+                        if (null != crawlTime) {
+                            proxy.setCrawlTime(crawlTime);
+                        }
+
                         if (null != p.get(PROXY_USERNAME)) {
                             proxy.setUserName(p.get(PROXY_USERNAME));
                         }
@@ -131,7 +140,7 @@ public class ProxyFission extends BaseFission {
         }
     }
 
-    private void insertProxy(List<ProxyPO> cacheProxy) {
+    public void insertProxy(List<ProxyPO> cacheProxy) {
         proxyServer.batchInsertProxy(cacheProxy);
     }
 
